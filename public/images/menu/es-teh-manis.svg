@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB" />
+      <stop offset="100%" stop-color="#FEF3C7" />
+    </linearGradient>
+    <linearGradient id="tea" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#78350F" />
+      <stop offset="40%" stop-color="#B45309" />
+      <stop offset="80%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#92400E" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#78350F" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bg)" />
+
+  <ellipse cx="300" cy="330" rx="140" ry="25" fill="#000000" opacity="0.08" />
+
+  <!-- Straw (Sedotan) -->
+  <path d="M 320 80 L 370 20 L 385 25 L 340 100" fill="#EF4444" stroke="#B91C1C" stroke-width="1.5" />
+  <line x1="320" y1="80" x2="270" y2="280" stroke="#EF4444" stroke-width="8" stroke-linecap="round" opacity="0.8" />
+
+  <!-- Tall Glass Body -->
+  <g filter="url(#shadow)">
+    <!-- Liquid -->
+    <path d="M 235 150 L 250 310 Q 300 325 350 310 L 365 150 Z" fill="url(#tea)" />
+    <!-- Liquid Top Surface -->
+    <ellipse cx="300" cy="150" rx="65" ry="18" fill="#F59E0B" stroke="#B45309" stroke-width="1" />
+
+    <!-- Glass Rim & Walls -->
+    <path d="M 225 120 L 245 320 Q 300 335 355 320 L 375 120 Z" fill="none" stroke="#FFFFFF" stroke-width="5" opacity="0.9" />
+    <ellipse cx="300" cy="120" rx="75" ry="20" fill="none" stroke="#FFFFFF" stroke-width="5" opacity="0.9" />
+  </g>
+
+  <!-- Ice Cubes inside Glass -->
+  <g stroke="#FFFFFF" stroke-width="2" fill="#FFFFFF" fill-opacity="0.4">
+    <rect x="260" y="150" width="35" height="35" rx="5" transform="rotate(15 260 150)" />
+    <rect x="310" y="165" width="32" height="32" rx="4" transform="rotate(-20 310 165)" />
+    <rect x="270" y="210" width="38" height="38" rx="6" transform="rotate(8 270 210)" />
+    <rect x="305" y="235" width="34" height="34" rx="5" transform="rotate(-12 305 235)" />
+  </g>
+
+  <!-- Condensation Droplets on Glass -->
+  <g fill="#FFFFFF" opacity="0.7">
+    <ellipse cx="250" cy="190" rx="2.5" ry="4" />
+    <ellipse cx="252" cy="240" rx="3" ry="5" />
+    <ellipse cx="350" cy="210" rx="2.5" ry="4" />
+    <ellipse cx="348" cy="260" rx="3" ry="5" />
+  </g>
+
+  <!-- Mint Leaf on Rim -->
+  <g transform="translate(230, 115)">
+    <path d="M 0 0 C -20 -15, -25 -35, 0 -40 C 25 -35, 20 -15, 0 0 Z" fill="#15803D" stroke="#166534" stroke-width="1.5" />
+    <path d="M 0 0 L 0 -35" stroke="#4ADE80" stroke-width="1" />
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(30, 30)">
+    <rect width="110" height="28" rx="14" fill="#059669" />
+    <text x="55" y="18" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">100% HALAL</text>
+  </g>
+  <g transform="translate(410, 30)">
+    <rect width="160" height="28" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <text x="490" y="18" fill="#B45309" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">ES TEH MANIS MELATI</text>
+  </g>
+</svg>

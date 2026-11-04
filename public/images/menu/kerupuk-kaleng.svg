@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EFF6FF" />
+      <stop offset="100%" stop-color="#DBEAFE" />
+    </linearGradient>
+    <linearGradient id="kaleng" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1D4ED8" />
+      <stop offset="50%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1E40AF" />
+    </linearGradient>
+    <radialGradient id="kerupuk" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="70%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#1E3A8A" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bg)" />
+
+  <!-- Kaleng Kerupuk Blek Biru (Left/Center background) -->
+  <g transform="translate(140, 100)" filter="url(#shadow)">
+    <!-- Kaleng Body -->
+    <rect x="0" y="30" width="150" height="190" rx="10" fill="url(#kaleng)" stroke="#1E3A8A" stroke-width="3" />
+    <!-- Kaleng Lid / Top -->
+    <ellipse cx="75" cy="30" rx="75" ry="18" fill="#60A5FA" stroke="#1E3A8A" stroke-width="3" />
+    <!-- Glass Window of Kaleng -->
+    <rect x="25" y="65" width="100" height="110" rx="6" fill="#BFDBFE" stroke="#1D4ED8" stroke-width="2" />
+    <!-- Kerupuk inside glass window -->
+    <ellipse cx="75" cy="115" rx="35" ry="35" fill="#FFFFFF" opacity="0.8" />
+    <path d="M 60 115 A 15 15 0 0 1 90 115" stroke="#CBD5E1" stroke-width="2" fill="none" />
+  </g>
+
+  <!-- Big Crispy White Kerupuk Mawar (Foreground Right) -->
+  <g transform="translate(340, 170)" filter="url(#shadow)">
+    <!-- Outer Swirls of kerupuk -->
+    <circle cx="90" cy="90" r="85" fill="url(#kerupuk)" stroke="#CBD5E1" stroke-width="4" />
+    <!-- Intertwined crispy noodles / petals pattern -->
+    <path d="M 90 20 C 40 20, 20 60, 20 90 C 20 130, 50 160, 90 160 C 130 160, 160 130, 160 90 C 160 50, 130 20, 90 20 Z" fill="none" stroke="#94A3B8" stroke-width="3.5" />
+    <circle cx="90" cy="90" r="55" fill="none" stroke="#94A3B8" stroke-width="3" />
+    <circle cx="90" cy="90" r="30" fill="none" stroke="#94A3B8" stroke-width="3" />
+    <!-- Criss-cross swirls -->
+    <path d="M 40 90 Q 90 40 140 90 Q 90 140 40 90" fill="none" stroke="#94A3B8" stroke-width="2.5" />
+    <path d="M 90 40 Q 140 90 90 140 Q 40 90 90 40" fill="none" stroke="#94A3B8" stroke-width="2.5" />
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(30, 30)">
+    <rect width="110" height="28" rx="14" fill="#059669" />
+    <text x="55" y="18" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">100% HALAL</text>
+  </g>
+  <g transform="translate(400, 30)">
+    <rect width="170" height="28" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <text x="485" y="18" fill="#1D4ED8" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">KERUPUK BLEK KALENG</text>
+  </g>
+</svg>

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB" />
+      <stop offset="100%" stop-color="#FEF3C7" />
+    </linearGradient>
+    <radialGradient id="perkedel" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="40%" stop-color="#F59E0B" />
+      <stop offset="85%" stop-color="#B45309" />
+      <stop offset="100%" stop-color="#78350F" />
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#78350F" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bg)" />
+
+  <!-- Ceramic White Plate -->
+  <ellipse cx="300" cy="270" rx="190" ry="70" fill="#E2E8F0" opacity="0.6" />
+  <g filter="url(#shadow)">
+    <ellipse cx="300" cy="255" rx="170" ry="60" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="4" />
+    <ellipse cx="300" cy="255" rx="140" ry="48" fill="#F8FAFC" />
+  </g>
+
+  <!-- 3 Golden Fried Perkedel Patties -->
+  <!-- Perkedel 1 (Left Back) -->
+  <g filter="url(#shadow)">
+    <ellipse cx="230" cy="235" rx="55" ry="42" fill="url(#perkedel)" transform="rotate(-15 230 235)" stroke="#92400E" stroke-width="2" />
+    <!-- Celery Flecks -->
+    <circle cx="210" cy="225" r="2.5" fill="#166534" />
+    <circle cx="235" cy="245" r="3" fill="#166534" />
+    <circle cx="245" cy="220" r="2" fill="#166534" />
+  </g>
+
+  <!-- Perkedel 2 (Right Back) -->
+  <g filter="url(#shadow)">
+    <ellipse cx="360" cy="240" rx="52" ry="40" fill="url(#perkedel)" transform="rotate(20 360 240)" stroke="#92400E" stroke-width="2" />
+    <circle cx="350" cy="230" r="3" fill="#166534" />
+    <circle cx="370" cy="250" r="2.5" fill="#166534" />
+  </g>
+
+  <!-- Perkedel 3 (Front Center, Hero) -->
+  <g filter="url(#shadow)">
+    <ellipse cx="300" cy="265" rx="65" ry="50" fill="url(#perkedel)" transform="rotate(5 300 265)" stroke="#92400E" stroke-width="2.5" />
+    <!-- Golden Egg Wash Crisp Texture -->
+    <path d="M 270 250 Q 295 240 325 255 Q 310 275 280 270 Z" fill="#FDE047" opacity="0.4" />
+    <!-- Celery Bits -->
+    <circle cx="280" cy="255" r="3" fill="#166534" />
+    <circle cx="315" cy="260" r="3.5" fill="#166534" />
+    <circle cx="295" cy="280" r="2.5" fill="#166534" />
+    <circle cx="330" cy="275" r="2" fill="#166534" />
+  </g>
+
+  <!-- Garnish: Red Chili Slices & Celery Leaf -->
+  <g transform="translate(180, 260)">
+    <path d="M 0 0 C 10 -15, 25 -10, 20 5 Z" fill="#15803D" />
+    <ellipse cx="10" cy="-5" rx="3" ry="1.5" fill="#4ADE80" />
+  </g>
+  <ellipse cx="400" cy="270" rx="10" ry="4" fill="#DC2626" stroke="#991B1B" stroke-width="1" transform="rotate(-30 400 270)" />
+
+  <!-- Badges -->
+  <g transform="translate(30, 30)">
+    <rect width="110" height="28" rx="14" fill="#059669" />
+    <text x="55" y="18" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">100% HALAL</text>
+  </g>
+  <g transform="translate(410, 30)">
+    <rect width="160" height="28" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <text x="490" y="18" fill="#B45309" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">PERKEDEL KENTANG ASLI</text>
+  </g>
+</svg>

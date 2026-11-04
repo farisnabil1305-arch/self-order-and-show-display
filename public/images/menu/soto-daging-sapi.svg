@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#F1F5F9" />
+    </linearGradient>
+    <radialGradient id="beefsoup" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#CA8A04" />
+      <stop offset="60%" stop-color="#A16207" />
+      <stop offset="100%" stop-color="#78350F" />
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.1" />
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bg)" />
+  <ellipse cx="300" cy="310" rx="220" ry="40" fill="#E2E8F0" opacity="0.6" />
+  <ellipse cx="300" cy="275" rx="150" ry="30" fill="#000000" opacity="0.08" />
+
+  <!-- Bowl -->
+  <g filter="url(#shadow)">
+    <path d="M 150 170 Q 150 270 300 270 Q 450 270 450 170 Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="4" />
+    <ellipse cx="300" cy="170" rx="150" ry="45" fill="#F8FAFC" />
+    <ellipse cx="300" cy="176" rx="140" ry="38" fill="url(#beefsoup)" />
+  </g>
+
+  <!-- Beef Chunks (Daging Sapi Empuk Halal) -->
+  <g fill="#451A03" stroke="#292524" stroke-width="1.5">
+    <rect x="230" y="160" width="36" height="22" rx="6" transform="rotate(-5 230 160)" />
+    <rect x="275" y="170" width="38" height="24" rx="6" transform="rotate(15 275 170)" />
+    <rect x="330" y="165" width="34" height="20" rx="5" transform="rotate(-15 330 165)" />
+    <rect x="200" y="175" width="32" height="18" rx="5" transform="rotate(10 200 175)" />
+  </g>
+
+  <!-- Tauge Segar (Beansprouts) -->
+  <g stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none">
+    <path d="M 220 160 Q 225 150 232 153" />
+    <path d="M 260 155 Q 266 145 274 148" />
+    <path d="M 350 160 Q 355 150 365 152" />
+    <path d="M 310 150 Q 314 140 322 143" />
+  </g>
+  <g fill="#E2E8F0">
+    <circle cx="233" cy="153" r="2.5" />
+    <circle cx="275" cy="148" r="2.5" />
+    <circle cx="366" cy="152" r="2.5" />
+    <circle cx="323" cy="143" r="2.5" />
+  </g>
+
+  <!-- Seledri & Bawang Merah Goreng -->
+  <g fill="#16A34A">
+    <rect x="240" y="150" width="8" height="4" rx="1" transform="rotate(20 240 150)" />
+    <rect x="300" y="160" width="8" height="4" rx="1" transform="rotate(-30 300 160)" />
+    <rect x="340" y="175" width="8" height="4" rx="1" transform="rotate(40 340 175)" />
+  </g>
+  <g fill="#92400E">
+    <circle cx="280" cy="165" r="2" />
+    <circle cx="290" cy="170" r="2.5" />
+    <circle cx="320" cy="160" r="2" />
+  </g>
+
+  <!-- Steam -->
+  <g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.6" fill="none">
+    <path d="M 285 110 Q 275 85 290 60 Q 305 40 295 20" />
+    <path d="M 320 110 Q 335 85 320 60 Q 310 40 325 20" />
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(30, 30)">
+    <rect width="110" height="28" rx="14" fill="#059669" />
+    <text x="55" y="18" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">100% HALAL</text>
+  </g>
+  <g transform="translate(420, 30)">
+    <rect width="150" height="28" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <text x="495" y="18" fill="#78350F" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">DAGING SAPI MADURA</text>
+  </g>
+</svg>

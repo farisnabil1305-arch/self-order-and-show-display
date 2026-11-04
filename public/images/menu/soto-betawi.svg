@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB" />
+      <stop offset="100%" stop-color="#FEF2F2" />
+    </linearGradient>
+    <radialGradient id="creamysoup" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="50%" stop-color="#FDE047" />
+      <stop offset="85%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#78350F" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bg)" />
+  <ellipse cx="300" cy="310" rx="220" ry="40" fill="#E2E8F0" opacity="0.6" />
+  <ellipse cx="300" cy="275" rx="150" ry="30" fill="#000000" opacity="0.08" />
+
+  <!-- Bowl -->
+  <g filter="url(#shadow)">
+    <path d="M 150 170 Q 150 270 300 270 Q 450 270 450 170 Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="4" />
+    <ellipse cx="300" cy="170" rx="150" ry="45" fill="#F8FAFC" />
+    <ellipse cx="300" cy="176" rx="140" ry="38" fill="url(#creamysoup)" />
+  </g>
+
+  <!-- Beef Cuts (Halal) -->
+  <g fill="#451A03" stroke="#292524" stroke-width="1.5">
+    <rect x="220" y="165" width="34" height="20" rx="5" transform="rotate(-10 220 165)" />
+    <rect x="260" y="175" width="36" height="22" rx="5" transform="rotate(15 260 175)" />
+    <rect x="240" y="185" width="30" height="18" rx="4" transform="rotate(-5 240 185)" />
+  </g>
+
+  <!-- Emping Melinjo Chips (Crispy round crackers) -->
+  <g fill="#FEF08A" stroke="#CA8A04" stroke-width="1.5">
+    <ellipse cx="350" cy="165" rx="24" ry="16" transform="rotate(25 350 165)" />
+    <ellipse cx="365" cy="180" rx="22" ry="15" transform="rotate(-15 365 180)" />
+    <ellipse cx="330" cy="180" rx="20" ry="14" transform="rotate(10 330 180)" />
+  </g>
+
+  <!-- Tomat Merah & Daun Bawang -->
+  <path d="M 290 155 A 15 15 0 0 1 315 168 Z" fill="#DC2626" />
+  <path d="M 295 168 A 12 12 0 0 1 315 178 Z" fill="#EF4444" />
+  <g fill="#16A34A">
+    <rect x="270" y="160" width="8" height="4" rx="1" transform="rotate(35 270 160)" />
+    <rect x="305" y="175" width="8" height="4" rx="1" transform="rotate(-25 305 175)" />
+  </g>
+
+  <!-- Steam -->
+  <g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.65" fill="none">
+    <path d="M 280 115 Q 265 90 280 65 Q 295 45 285 25" />
+    <path d="M 320 115 Q 335 90 320 65 Q 310 45 325 25" />
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(30, 30)">
+    <rect width="110" height="28" rx="14" fill="#059669" />
+    <text x="55" y="18" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">100% HALAL</text>
+  </g>
+  <g transform="translate(410, 30)">
+    <rect width="160" height="28" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <text x="490" y="18" fill="#B45309" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">SOTO BETAWI CREAMY</text>
+  </g>
+</svg>

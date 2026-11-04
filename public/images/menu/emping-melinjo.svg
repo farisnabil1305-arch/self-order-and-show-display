@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB" />
+      <stop offset="100%" stop-color="#FEF3C7" />
+    </linearGradient>
+    <radialGradient id="emping" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="60%" stop-color="#FACC15" />
+      <stop offset="90%" stop-color="#EAB308" />
+      <stop offset="100%" stop-color="#CA8A04" />
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#78350F" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bg)" />
+
+  <!-- Wooden Bowl / Plate -->
+  <g filter="url(#shadow)">
+    <ellipse cx="300" cy="270" rx="190" ry="70" fill="#78350F" stroke="#451A03" stroke-width="4" />
+    <ellipse cx="300" cy="265" rx="170" ry="55" fill="#92400E" />
+    <ellipse cx="300" cy="265" rx="150" ry="45" fill="#A16207" />
+  </g>
+
+  <!-- Pile of Crispy Emping Melinjo Chips -->
+  <g filter="url(#shadow)">
+    <!-- Back Chips -->
+    <ellipse cx="230" cy="245" rx="45" ry="32" fill="url(#emping)" stroke="#CA8A04" stroke-width="2" transform="rotate(-20 230 245)" />
+    <ellipse cx="370" cy="245" rx="48" ry="30" fill="url(#emping)" stroke="#CA8A04" stroke-width="2" transform="rotate(25 370 245)" />
+    <ellipse cx="300" cy="225" rx="50" ry="35" fill="url(#emping)" stroke="#CA8A04" stroke-width="2" transform="rotate(-5 300 225)" />
+
+    <!-- Front Chips -->
+    <ellipse cx="260" cy="265" rx="52" ry="36" fill="url(#emping)" stroke="#CA8A04" stroke-width="2.5" transform="rotate(15 260 265)" />
+    <ellipse cx="340" cy="265" rx="54" ry="35" fill="url(#emping)" stroke="#CA8A04" stroke-width="2.5" transform="rotate(-15 340 265)" />
+    <ellipse cx="300" cy="280" rx="50" ry="32" fill="url(#emping)" stroke="#CA8A04" stroke-width="2.5" transform="rotate(5 300 280)" />
+  </g>
+
+  <!-- Texture wrinkles on emping -->
+  <g stroke="#A16207" stroke-width="1.5" opacity="0.6" fill="none">
+    <path d="M 285 270 Q 300 275 315 270" />
+    <path d="M 250 255 Q 265 260 275 255" />
+    <path d="M 330 255 Q 345 260 355 255" />
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(30, 30)">
+    <rect width="110" height="28" rx="14" fill="#059669" />
+    <text x="55" y="18" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">100% HALAL</text>
+  </g>
+  <g transform="translate(400, 30)">
+    <rect width="170" height="28" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <text x="485" y="18" fill="#B45309" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">EMPING MELINJO GURIH</text>
+  </g>
+</svg>

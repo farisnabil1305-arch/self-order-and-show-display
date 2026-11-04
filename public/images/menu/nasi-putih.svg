@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#F1F5F9" />
+    </linearGradient>
+    <radialGradient id="rice" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="70%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#0F172A" flood-opacity="0.1" />
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bg)" />
+
+  <ellipse cx="300" cy="300" rx="180" ry="35" fill="#E2E8F0" opacity="0.6" />
+
+  <!-- Ceramic Bowl -->
+  <g filter="url(#shadow)">
+    <!-- Bowl Base -->
+    <path d="M 180 180 Q 180 270 300 270 Q 420 270 420 180 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="4" />
+    <!-- Bowl Rim Back -->
+    <ellipse cx="300" cy="180" rx="120" ry="35" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="2" />
+  </g>
+
+  <!-- Fluffy Steamed Rice Mound (Nasi Pulen Hangat) -->
+  <g filter="url(#shadow)">
+    <!-- Main Rice Dome -->
+    <path d="M 190 178 C 190 120, 410 120, 410 178 Z" fill="url(#rice)" stroke="#E2E8F0" stroke-width="2" />
+    <!-- Rice texture bumps -->
+    <ellipse cx="230" cy="160" rx="12" ry="7" fill="#FFFFFF" />
+    <ellipse cx="270" cy="145" rx="14" ry="8" fill="#FFFFFF" />
+    <ellipse cx="320" cy="140" rx="15" ry="9" fill="#FFFFFF" />
+    <ellipse cx="360" cy="155" rx="13" ry="8" fill="#FFFFFF" />
+    <ellipse cx="250" cy="170" rx="12" ry="6" fill="#F8FAFC" />
+    <ellipse cx="300" cy="165" rx="16" ry="8" fill="#F8FAFC" />
+    <ellipse cx="350" cy="170" rx="14" ry="7" fill="#F8FAFC" />
+  </g>
+
+  <!-- Bawang Goreng Gurih (Crispy Fried Shallots on Top) -->
+  <g fill="#92400E" stroke="#78350F" stroke-width="0.8">
+    <ellipse cx="290" cy="130" rx="7" ry="3.5" transform="rotate(25 290 130)" />
+    <ellipse cx="310" cy="132" rx="8" ry="4" transform="rotate(-30 310 132)" />
+    <ellipse cx="300" cy="138" rx="7" ry="3" transform="rotate(10 300 138)" />
+    <ellipse cx="280" cy="140" rx="6" ry="3" transform="rotate(-15 280 140)" />
+    <ellipse cx="320" cy="142" rx="6" ry="3" transform="rotate(40 320 142)" />
+  </g>
+
+  <!-- Pandan Leaf Garnish -->
+  <g transform="translate(300, 118)">
+    <path d="M 0 0 C -10 -20, -5 -35, 0 -45 C 5 -35, 10 -20, 0 0 Z" fill="#15803D" stroke="#166534" stroke-width="1.5" />
+    <path d="M 0 0 L 0 -40" stroke="#22C55E" stroke-width="1" />
+  </g>
+
+  <!-- Steam -->
+  <g stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round" opacity="0.4" fill="none">
+    <path d="M 280 100 Q 270 75 285 50" />
+    <path d="M 320 100 Q 330 75 315 50" />
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(30, 30)">
+    <rect width="110" height="28" rx="14" fill="#059669" />
+    <text x="55" y="18" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">100% HALAL</text>
+  </g>
+  <g transform="translate(410, 30)">
+    <rect width="160" height="28" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <text x="490" y="18" fill="#0F172A" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">NASI PUTIH PULEN</text>
+  </g>
+</svg>

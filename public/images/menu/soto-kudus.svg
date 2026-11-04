@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB" />
+      <stop offset="100%" stop-color="#FEF3C7" />
+    </linearGradient>
+    <radialGradient id="kudussoup" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="70%" stop-color="#B45309" />
+      <stop offset="100%" stop-color="#78350F" />
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#78350F" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bg)" />
+  <ellipse cx="300" cy="310" rx="200" ry="35" fill="#E2E8F0" opacity="0.6" />
+  <ellipse cx="300" cy="275" rx="130" ry="25" fill="#000000" opacity="0.08" />
+
+  <!-- Traditional Terracotta / Clay Mangkuk Kudus -->
+  <g filter="url(#shadow)">
+    <path d="M 170 170 Q 170 270 300 270 Q 430 270 430 170 Z" fill="#78350F" stroke="#451A03" stroke-width="4" />
+    <ellipse cx="300" cy="170" rx="130" ry="40" fill="#92400E" />
+    <ellipse cx="300" cy="175" rx="120" ry="34" fill="url(#kudussoup)" />
+  </g>
+
+  <!-- Rice & Shredded Chicken inside bowl -->
+  <ellipse cx="300" cy="180" rx="80" ry="20" fill="#FEF3C7" opacity="0.6" />
+  <g fill="#FEF08A" stroke="#CA8A04" stroke-width="1.5">
+    <rect x="230" y="165" width="30" height="10" rx="3" transform="rotate(-10 230 165)" />
+    <rect x="260" y="172" width="35" height="11" rx="3" transform="rotate(20 260 172)" />
+    <rect x="330" y="168" width="28" height="9" rx="3" transform="rotate(-15 330 168)" />
+  </g>
+
+  <!-- Fried Garlic Flakes (Bawang Putih Goreng Khas Kudus) -->
+  <g fill="#FDE047" stroke="#CA8A04" stroke-width="1">
+    <ellipse cx="270" cy="160" rx="6" ry="4" transform="rotate(15 270 160)" />
+    <ellipse cx="295" cy="165" rx="7" ry="4" transform="rotate(-30 295 165)" />
+    <ellipse cx="320" cy="162" rx="6" ry="4" transform="rotate(45 320 162)" />
+    <ellipse cx="285" cy="175" rx="5" ry="3" transform="rotate(10 285 175)" />
+  </g>
+
+  <!-- Seledri Segar -->
+  <g fill="#16A34A">
+    <rect x="240" y="155" width="7" height="4" rx="1" transform="rotate(25 240 155)" />
+    <rect x="315" y="175" width="7" height="4" rx="1" transform="rotate(-35 315 175)" />
+  </g>
+
+  <!-- Steam -->
+  <g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.65" fill="none">
+    <path d="M 280 115 Q 265 90 280 65 Q 295 45 285 25" />
+    <path d="M 320 115 Q 335 90 320 65 Q 310 45 325 25" />
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(30, 30)">
+    <rect width="110" height="28" rx="14" fill="#059669" />
+    <text x="55" y="18" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">100% HALAL</text>
+  </g>
+  <g transform="translate(420, 30)">
+    <rect width="150" height="28" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <text x="495" y="18" fill="#78350F" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">SOTO MANGKUK KUDUS</text>
+  </g>
+</svg>

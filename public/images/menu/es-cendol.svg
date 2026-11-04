@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0FDF4" />
+      <stop offset="100%" stop-color="#DCFCE7" />
+    </linearGradient>
+    <linearGradient id="cendolglass" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FEF3C7" />
+      <stop offset="40%" stop-color="#FFFFFF" />
+      <stop offset="70%" stop-color="#84CC16" />
+      <stop offset="85%" stop-color="#78350F" />
+      <stop offset="100%" stop-color="#451A03" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#166534" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bg)" />
+
+  <ellipse cx="300" cy="330" rx="140" ry="25" fill="#000000" opacity="0.08" />
+
+  <!-- Straw & Spoon -->
+  <line x1="330" y1="70" x2="380" y2="20" stroke="#15803D" stroke-width="8" stroke-linecap="round" />
+  <line x1="330" y1="70" x2="280" y2="280" stroke="#15803D" stroke-width="8" stroke-linecap="round" opacity="0.8" />
+
+  <!-- Glass -->
+  <g filter="url(#shadow)">
+    <!-- Liquid Layers: Gula aren at bottom, Coconut milk top -->
+    <path d="M 235 150 L 250 310 Q 300 325 350 310 L 365 150 Z" fill="url(#cendolglass)" />
+    <ellipse cx="300" cy="150" rx="65" ry="18" fill="#FFFBEB" />
+
+    <!-- Glass Rim & Walls -->
+    <path d="M 225 120 L 245 320 Q 300 335 355 320 L 375 120 Z" fill="none" stroke="#FFFFFF" stroke-width="5" opacity="0.9" />
+    <ellipse cx="300" cy="120" rx="75" ry="20" fill="none" stroke="#FFFFFF" stroke-width="5" opacity="0.9" />
+  </g>
+
+  <!-- Green Pandan Cendol Droplets (Cendol Hijau Kenyal) -->
+  <g fill="#16A34A" stroke="#15803D" stroke-width="1.5">
+    <!-- Cendol Worms/Droplets -->
+    <path d="M 260 230 C 270 220, 275 235, 280 240 C 275 245, 265 240, 260 230 Z" />
+    <path d="M 290 220 C 300 215, 305 225, 310 230 C 300 235, 295 230, 290 220 Z" />
+    <path d="M 320 235 C 330 225, 335 240, 340 245 C 330 250, 325 245, 320 235 Z" />
+    <path d="M 270 250 C 280 245, 285 255, 290 260 C 285 265, 275 260, 270 250 Z" />
+    <path d="M 305 255 C 315 250, 320 260, 325 265 C 320 270, 310 265, 305 255 Z" />
+    <path d="M 280 270 C 290 265, 295 275, 300 280 C 295 285, 285 280, 280 270 Z" />
+  </g>
+
+  <!-- Ice Cubes on Top -->
+  <g stroke="#FFFFFF" stroke-width="2" fill="#FFFFFF" fill-opacity="0.5">
+    <rect x="260" y="145" width="35" height="35" rx="5" transform="rotate(15 260 145)" />
+    <rect x="310" y="155" width="32" height="32" rx="4" transform="rotate(-15 310 155)" />
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(30, 30)">
+    <rect width="110" height="28" rx="14" fill="#059669" />
+    <text x="55" y="18" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">100% HALAL</text>
+  </g>
+  <g transform="translate(400, 30)">
+    <rect width="170" height="28" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <text x="485" y="18" fill="#15803D" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">ES CENDOL GULA AREN</text>
+  </g>
+</svg>
