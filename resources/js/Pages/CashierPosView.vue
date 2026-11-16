@@ -11,6 +11,7 @@ import MenuManagerModal from '@/Components/MenuManagerModal.vue';
 import PrinterSettingsModal from '@/Components/PrinterSettingsModal.vue';
 import TableMapModal from '@/Components/TableMapModal.vue';
 import StoreSettingsModal from '@/Components/StoreSettingsModal.vue';
+import ConfirmModal from '@/Components/ConfirmModal.vue';
 import { thermalPrinter } from '@/Utils/thermalPrinter';
 import {
     UtensilsCrossed,
@@ -411,55 +412,100 @@ async function printKitchenTicket(order) {
     }, 200);
 }
 
-// Cancel Order Action
-async function cancelCurrentOrder() {
-    if (!selectedOrder.value) return;
-    if (!confirm(`Batalkan pesanan ${selectedOrder.value.order_number} milik ${selectedOrder.value.customer_name}?`)) {
-        return;
-    }
+// Confirmation Modal State (Smooth Animated Custom Dialog, NO native confirm)
+const confirmDialog = ref({
+    show: false,
+    title: '',
+    message: '',
+    confirmText: 'Ya, Lanjutkan',
+    type: 'danger',
+    isLoading: false,
+    onConfirm: null,
+});
 
-    try {
-        await axios.post(`/pos/orders/${selectedOrder.value.id}/cancel`);
-        await fetchOrdersSilently();
-        if (pendingOrders.value.length > 0) {
-            selectOrder(pendingOrders.value[0]);
+function openConfirmDialog({ title, message, confirmText = 'Ya, Lanjutkan', type = 'danger', onConfirm }) {
+    confirmDialog.value = {
+        show: true,
+        title,
+        message,
+        confirmText,
+        type,
+        isLoading: false,
+        onConfirm,
+    };
+}
+
+async function handleConfirmAction() {
+    if (confirmDialog.value.onConfirm) {
+        confirmDialog.value.isLoading = true;
+        try {
+            await confirmDialog.value.onConfirm();
+        } finally {
+            confirmDialog.value.isLoading = false;
+            confirmDialog.value.show = false;
         }
-    } catch (e) {
-        alert('Gagal membatalkan pesanan.');
+    } else {
+        confirmDialog.value.show = false;
     }
 }
 
+// Cancel Order Action
+function cancelCurrentOrder() {
+    if (!selectedOrder.value) return;
+    openConfirmDialog({
+        title: 'Batalkan Pesanan Ini?',
+        message: `Batalkan pesanan ${selectedOrder.value.order_number} milik ${selectedOrder.value.customer_name}? Status pesanan akan diubah menjadi Dibatalkan.`,
+        confirmText: 'Ya, Batalkan',
+        type: 'warning',
+        onConfirm: async () => {
+            try {
+                await axios.post(`/pos/orders/${selectedOrder.value.id}/cancel`);
+                await fetchOrdersSilently();
+                if (pendingOrders.value.length > 0) {
+                    selectOrder(pendingOrders.value[0]);
+                }
+            } catch (e) {
+                alert('Gagal membatalkan pesanan.');
+            }
+        },
+    });
+}
+
 // Delete Order Action (permanently from history or queue)
-async function deleteOrder(orderToDelete) {
+function deleteOrder(orderToDelete) {
     const target = orderToDelete || selectedOrder.value;
     if (!target) return;
 
-    if (!confirm(`Hapus pesanan ${target.order_number} (${target.customer_name}) dari riwayat sistem?`)) {
-        return;
-    }
+    openConfirmDialog({
+        title: 'Hapus Pesanan Permanen?',
+        message: `Hapus pesanan ${target.order_number} (${target.customer_name}) dari riwayat sistem secara permanen? Data yang dihapus tidak dapat dipulihkan.`,
+        confirmText: 'Ya, Hapus Pesanan',
+        type: 'danger',
+        onConfirm: async () => {
+            try {
+                await axios.delete(`/pos/orders/${target.id}`);
+                
+                const wasSelected = selectedOrderId.value === target.id;
+                if (wasSelected) {
+                    selectedOrderId.value = null;
+                    selectedOrder.value = null;
+                }
 
-    try {
-        await axios.delete(`/pos/orders/${target.id}`);
-        
-        const wasSelected = selectedOrderId.value === target.id;
-        if (wasSelected) {
-            selectedOrderId.value = null;
-            selectedOrder.value = null;
-        }
+                await fetchOrdersSilently();
 
-        await fetchOrdersSilently();
-
-        // If the deleted order was selected, select next available order
-        if (wasSelected) {
-            if (activeTab.value === 'pending' && pendingOrders.value.length > 0) {
-                selectOrder(pendingOrders.value[0]);
-            } else if (activeTab.value === 'history' && recentPaidOrders.value.length > 0) {
-                selectOrder(recentPaidOrders.value[0]);
+                // If the deleted order was selected, select next available order
+                if (wasSelected) {
+                    if (activeTab.value === 'pending' && pendingOrders.value.length > 0) {
+                        selectOrder(pendingOrders.value[0]);
+                    } else if (activeTab.value === 'history' && recentPaidOrders.value.length > 0) {
+                        selectOrder(recentPaidOrders.value[0]);
+                    }
+                }
+            } catch (e) {
+                alert('Gagal menghapus pesanan dari riwayat.');
             }
-        }
-    } catch (e) {
-        alert('Gagal menghapus pesanan dari riwayat.');
-    }
+        },
+    });
 }
 
 // Panggil antrean ke TV Display
@@ -474,23 +520,27 @@ async function callOrderToTv(order) {
 }
 
 // Clear All Orders Action (History or Pending)
-async function clearAllOrders(scope = 'history') {
+function clearAllOrders(scope = 'history') {
     const scopeLabel = scope === 'history' ? 'SEMUA riwayat pesanan yang sudah selesai' : 'SEMUA antrean pesanan yang menunggu';
 
-    if (!confirm(`PERINGATAN: Apakah Anda yakin ingin MENGHAPUS ${scopeLabel}? Tindakan ini bersifat permanen dan tidak dapat dipulihkan.`)) {
-        return;
-    }
+    openConfirmDialog({
+        title: 'Hapus Semua Pesanan?',
+        message: `Apakah Anda yakin ingin menghapus ${scopeLabel}? Tindakan ini bersifat permanen dan data riwayat tidak dapat dipulihkan.`,
+        confirmText: 'Ya, Hapus Semua',
+        type: 'danger',
+        onConfirm: async () => {
+            try {
+                await axios.post('/pos/orders/clear-all', { scope });
 
-    try {
-        await axios.post('/pos/orders/clear-all', { scope });
+                selectedOrderId.value = null;
+                selectedOrder.value = null;
 
-        selectedOrderId.value = null;
-        selectedOrder.value = null;
-
-        await fetchOrdersSilently();
-    } catch (e) {
-        alert('Gagal menghapus semua pesanan.');
-    }
+                await fetchOrdersSilently();
+            } catch (e) {
+                alert('Gagal menghapus semua pesanan.');
+            }
+        },
+    });
 }
 </script>
 
@@ -540,6 +590,18 @@ async function clearAllOrders(scope = 'history') {
         subtitle="Hubungkan ke printer thermal struk Bluetooth, USB, atau Driver Sistem."
         @close="showPrinterModal = false"
         @saved="onPosPrinterSaved"
+    />
+
+    <!-- Custom Animated Confirmation Modal (Zero AI Slop) -->
+    <ConfirmModal
+        :show="confirmDialog.show"
+        :title="confirmDialog.title"
+        :message="confirmDialog.message"
+        :confirmText="confirmDialog.confirmText"
+        :type="confirmDialog.type"
+        :isLoading="confirmDialog.isLoading"
+        @confirm="handleConfirmAction"
+        @cancel="confirmDialog.show = false"
     />
 
     <div class="h-screen flex flex-col bg-[#FAF7F2] font-sans text-[#231812] overflow-hidden">

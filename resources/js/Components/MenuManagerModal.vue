@@ -2,6 +2,7 @@
 import { ref, reactive, computed, watch } from 'vue';
 import axios from 'axios';
 import { formatRupiah } from '@/Utils/formatters';
+import ConfirmModal from '@/Components/ConfirmModal.vue';
 import {
     UtensilsCrossed,
     FolderPlus,
@@ -117,24 +118,68 @@ async function submitCategory() {
     }
 }
 
-async function deleteCategory(category) {
+// Confirmation Modal State (Smooth Animated Custom Dialog, NO native confirm)
+const confirmDialog = ref({
+    show: false,
+    title: '',
+    message: '',
+    confirmText: 'Ya, Hapus',
+    type: 'danger',
+    isLoading: false,
+    onConfirm: null,
+});
+
+function openConfirmDialog({ title, message, confirmText = 'Ya, Hapus', type = 'danger', onConfirm }) {
+    confirmDialog.value = {
+        show: true,
+        title,
+        message,
+        confirmText,
+        type,
+        isLoading: false,
+        onConfirm,
+    };
+}
+
+async function handleConfirmAction() {
+    if (confirmDialog.value.onConfirm) {
+        confirmDialog.value.isLoading = true;
+        try {
+            await confirmDialog.value.onConfirm();
+        } finally {
+            confirmDialog.value.isLoading = false;
+            confirmDialog.value.show = false;
+        }
+    } else {
+        confirmDialog.value.show = false;
+    }
+}
+
+function deleteCategory(category) {
     if (category.products_count > 0) {
         showAlert(`Kategori "${category.name}" memiliki ${category.products_count} menu. Hapus atau pindahkan menu terlebih dahulu!`, 'error');
         return;
     }
-    if (!confirm(`Yakin ingin menghapus kategori "${category.name}"?`)) return;
 
-    try {
-        const res = await axios.delete(`/pos/categories/${category.id}`);
-        if (res.data?.success) {
-            showAlert(res.data.message || 'Kategori berhasil dihapus!');
-            await loadMenuData();
-            emit('updated');
-        }
-    } catch (err) {
-        const msg = err.response?.data?.message || 'Gagal menghapus kategori.';
-        showAlert(msg, 'error');
-    }
+    openConfirmDialog({
+        title: 'Hapus Kategori Menu?',
+        message: `Apakah Anda yakin ingin menghapus kategori "${category.name}"? Kategori yang sudah dihapus tidak dapat dipulihkan kembali.`,
+        confirmText: 'Ya, Hapus Kategori',
+        type: 'danger',
+        onConfirm: async () => {
+            try {
+                const res = await axios.delete(`/pos/categories/${category.id}`);
+                if (res.data?.success) {
+                    showAlert(res.data.message || 'Kategori berhasil dihapus!');
+                    await loadMenuData();
+                    emit('updated');
+                }
+            } catch (err) {
+                const msg = err.response?.data?.message || 'Gagal menghapus kategori.';
+                showAlert(msg, 'error');
+            }
+        },
+    });
 }
 
 // Product Form
@@ -264,20 +309,26 @@ async function toggleAvailability(product) {
     }
 }
 
-async function deleteProduct(product) {
-    if (!confirm(`Hapus menu "${product.name}" secara permanen dari database?`)) return;
-
-    try {
-        const res = await axios.delete(`/pos/products/${product.id}`);
-        if (res.data?.success) {
-            showAlert(res.data.message || 'Menu berhasil dihapus!');
-            await loadMenuData();
-            emit('updated');
-        }
-    } catch (err) {
-        const msg = err.response?.data?.message || 'Gagal menghapus menu.';
-        showAlert(msg, 'error');
-    }
+function deleteProduct(product) {
+    openConfirmDialog({
+        title: 'Hapus Menu Makanan?',
+        message: `Hapus menu "${product.name}" secara permanen dari database? Data yang sudah dihapus tidak dapat dipulihkan kembali.`,
+        confirmText: 'Ya, Hapus Menu',
+        type: 'danger',
+        onConfirm: async () => {
+            try {
+                const res = await axios.delete(`/pos/products/${product.id}`);
+                if (res.data?.success) {
+                    showAlert(res.data.message || 'Menu berhasil dihapus!');
+                    await loadMenuData();
+                    emit('updated');
+                }
+            } catch (err) {
+                const msg = err.response?.data?.message || 'Gagal menghapus menu.';
+                showAlert(msg, 'error');
+            }
+        },
+    });
 }
 </script>
 
@@ -801,4 +852,16 @@ async function deleteProduct(product) {
             </div>
         </div>
     </div>
+
+    <!-- Custom Animated Confirmation Modal (Zero AI Slop) -->
+    <ConfirmModal
+        :show="confirmDialog.show"
+        :title="confirmDialog.title"
+        :message="confirmDialog.message"
+        :confirmText="confirmDialog.confirmText"
+        :type="confirmDialog.type"
+        :isLoading="confirmDialog.isLoading"
+        @confirm="handleConfirmAction"
+        @cancel="confirmDialog.show = false"
+    />
 </template>

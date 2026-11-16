@@ -5,6 +5,7 @@ import axios from 'axios';
 import { formatRupiah } from '@/Utils/formatters';
 import KioskTicketPrint from '@/Components/KioskTicketPrint.vue';
 import PrinterSettingsModal from '@/Components/PrinterSettingsModal.vue';
+import ConfirmModal from '@/Components/ConfirmModal.vue';
 import { thermalPrinter } from '@/Utils/thermalPrinter';
 import {
     UtensilsCrossed,
@@ -391,11 +392,47 @@ function getCategoryCount(categoryId) {
     return props.products.filter((p) => p.category_id === categoryId).length;
 }
 
+// Confirmation Modal State (Smooth Animated Custom Dialog, NO native confirm)
+const confirmDialog = ref({
+    show: false,
+    title: '',
+    message: '',
+    confirmText: 'Ya, Lanjutkan',
+    type: 'danger',
+    isLoading: false,
+    onConfirm: null,
+});
+
+function openConfirmDialog({ title, message, confirmText = 'Ya, Lanjutkan', type = 'danger', onConfirm }) {
+    confirmDialog.value = {
+        show: true,
+        title,
+        message,
+        confirmText,
+        type,
+        isLoading: false,
+        onConfirm,
+    };
+}
+
+function handleConfirmAction() {
+    if (confirmDialog.value.onConfirm) {
+        confirmDialog.value.onConfirm();
+    }
+    confirmDialog.value.show = false;
+}
+
 // Clear all items in cart
 function clearCart() {
-    if (confirm('Kosongkan semua menu dari keranjang pesanan?')) {
-        cart.value = [];
-    }
+    openConfirmDialog({
+        title: 'Kosongkan Keranjang?',
+        message: 'Apakah Anda yakin ingin menghapus semua menu yang sudah dipilih dari keranjang pesanan?',
+        confirmText: 'Ya, Kosongkan',
+        type: 'warning',
+        onConfirm: () => {
+            cart.value = [];
+        },
+    });
 }
 
 // Cart Actions
@@ -1571,4 +1608,16 @@ function resetKiosk() {
             </div>
         </div>
     </div>
+
+    <!-- Custom Animated Confirmation Modal (Zero AI Slop) -->
+    <ConfirmModal
+        :show="confirmDialog.show"
+        :title="confirmDialog.title"
+        :message="confirmDialog.message"
+        :confirmText="confirmDialog.confirmText"
+        :type="confirmDialog.type"
+        :isLoading="confirmDialog.isLoading"
+        @confirm="handleConfirmAction"
+        @cancel="confirmDialog.show = false"
+    />
 </template>
