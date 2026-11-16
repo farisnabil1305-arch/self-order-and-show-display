@@ -188,125 +188,149 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <Head title="Kitchen Display System (KDS) - Layar Dapur" />
+    <Head title="Layar Dapur & Racikan - Soto Betawi Parsoey" />
 
     <!-- Thermal Print Layout if staff clicks print -->
     <KitchenTicketPrint v-if="printingOrder" :order="printingOrder" paperSize="58mm" />
 
-    <div class="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans select-none overflow-x-hidden">
-        <!-- Top App Bar -->
-        <header class="bg-slate-900/90 border-b border-slate-800 px-4 sm:px-6 h-18 flex items-center justify-between shrink-0 sticky top-0 z-30 backdrop-blur-md">
-            <!-- Brand & Station Name -->
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center text-white shadow-md shadow-amber-950/40">
-                    <Flame class="w-6 h-6 animate-pulse" />
+    <div class="min-h-screen bg-[#FAF7F2] text-[#231812] flex flex-col font-sans select-none overflow-x-hidden">
+        <!-- Top App Bar (Warm, Authentic Culinary Header matching Self Order) -->
+        <header class="bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8DFD1] px-4 sm:px-6 h-20 flex items-center justify-between shrink-0 sticky top-0 z-30">
+            <!-- Brand & Station Identity -->
+            <div class="flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded-2xl bg-[#231812] flex items-center justify-center text-[#F5EBE1] font-serif font-black text-base tracking-wider shadow-sm border border-[#3D281F]">
+                    SBP
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
-                        <h1 class="text-base font-black tracking-tight text-white leading-tight">SBP KITCHEN DISPLAY</h1>
-                        <span class="px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                            Station Koki
+                        <h1 class="font-serif text-lg sm:text-xl font-bold text-[#231812] tracking-tight leading-tight">
+                            Soto Betawi Parsoey
+                        </h1>
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#EFE8DE] text-[#7A6A60] border border-[#E8DFD1]">
+                            Layar Dapur
                         </span>
                     </div>
-                    <div class="flex items-center gap-2 text-xs text-slate-400 mt-0.5 font-mono">
-                        <span class="text-emerald-400 font-bold">{{ currentTime }}</span>
+                    <div class="flex items-center gap-2 text-xs text-[#7A6A60] mt-0.5 font-medium">
+                        <span class="font-mono text-[#231812] font-bold">{{ currentTime }}</span>
                         <span>•</span>
-                        <span :class="isSyncing ? 'text-amber-400 animate-pulse' : 'text-slate-400'">
-                            {{ isSyncing ? 'Sinkron...' : 'Live Realtime' }}
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#15803D]">
+                            <span class="w-2 h-2 rounded-full bg-[#15803D] inline-block"></span>
+                            <span>{{ isSyncing ? 'Sinkron...' : 'Live Realtime' }}</span>
                         </span>
                     </div>
                 </div>
             </div>
 
-            <!-- Stats Bar Pill Buttons -->
-            <div class="hidden md:flex items-center gap-2 bg-slate-950/80 p-1.5 rounded-xl border border-slate-800 text-xs">
+            <!-- Segmented Filter Control (Clean, Native POS Style - NO AI Neon Glow) -->
+            <div class="hidden md:flex items-center gap-1 bg-[#EFE8DE] p-1 rounded-xl border border-[#E8DFD1] text-xs">
                 <button
                     type="button"
                     @click="activeTab = 'all'"
-                    class="px-3 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1.5 cursor-pointer"
-                    :class="activeTab === 'all' ? 'bg-amber-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'"
+                    class="px-3.5 py-2 rounded-lg font-bold transition-all flex items-center gap-2 cursor-pointer"
+                    :class="activeTab === 'all' ? 'bg-white text-[#231812] shadow-xs' : 'text-[#7A6A60] hover:text-[#231812]'"
                 >
                     <span>Semua Aktif</span>
-                    <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-black/30 font-mono">{{ counts.queued + counts.cooking + counts.ready }}</span>
+                    <span
+                        class="px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold"
+                        :class="activeTab === 'all' ? 'bg-[#231812] text-white' : 'bg-[#E8DFD1] text-[#5C4A3E]'"
+                    >
+                        {{ counts.queued + counts.cooking + counts.ready }}
+                    </span>
                 </button>
 
                 <button
                     type="button"
                     @click="activeTab = 'queued'"
-                    class="px-3 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1.5 cursor-pointer"
-                    :class="activeTab === 'queued' ? 'bg-amber-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'"
+                    class="px-3.5 py-2 rounded-lg font-bold transition-all flex items-center gap-2 cursor-pointer"
+                    :class="activeTab === 'queued' ? 'bg-white text-[#231812] shadow-xs' : 'text-[#7A6A60] hover:text-[#231812]'"
                 >
-                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#D97706]"></span>
                     <span>Perlu Dimasak</span>
-                    <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-amber-950/60 text-amber-300 font-mono">{{ counts.queued }}</span>
+                    <span
+                        class="px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold"
+                        :class="activeTab === 'queued' ? 'bg-[#D97706] text-white' : 'bg-[#E8DFD1] text-[#5C4A3E]'"
+                    >
+                        {{ counts.queued }}
+                    </span>
                 </button>
 
                 <button
                     type="button"
                     @click="activeTab = 'cooking'"
-                    class="px-3 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1.5 cursor-pointer"
-                    :class="activeTab === 'cooking' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'"
+                    class="px-3.5 py-2 rounded-lg font-bold transition-all flex items-center gap-2 cursor-pointer"
+                    :class="activeTab === 'cooking' ? 'bg-white text-[#231812] shadow-xs' : 'text-[#7A6A60] hover:text-[#231812]'"
                 >
-                    <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#2563EB]"></span>
                     <span>Sedang Dimasak</span>
-                    <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-blue-950/60 text-blue-300 font-mono">{{ counts.cooking }}</span>
+                    <span
+                        class="px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold"
+                        :class="activeTab === 'cooking' ? 'bg-[#2563EB] text-white' : 'bg-[#E8DFD1] text-[#5C4A3E]'"
+                    >
+                        {{ counts.cooking }}
+                    </span>
                 </button>
 
                 <button
                     type="button"
                     @click="activeTab = 'ready'"
-                    class="px-3 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1.5 cursor-pointer"
-                    :class="activeTab === 'ready' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'"
+                    class="px-3.5 py-2 rounded-lg font-bold transition-all flex items-center gap-2 cursor-pointer"
+                    :class="activeTab === 'ready' ? 'bg-white text-[#231812] shadow-xs' : 'text-[#7A6A60] hover:text-[#231812]'"
                 >
-                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#15803D]"></span>
                     <span>Siap Saji</span>
-                    <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-950/60 text-emerald-300 font-mono">{{ counts.ready }}</span>
+                    <span
+                        class="px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold"
+                        :class="activeTab === 'ready' ? 'bg-[#15803D] text-white' : 'bg-[#E8DFD1] text-[#5C4A3E]'"
+                    >
+                        {{ counts.ready }}
+                    </span>
                 </button>
             </div>
 
-            <!-- Right Controls: Audio, Navigation, Fullscreen -->
+            <!-- Right Controls: Audio, Fullscreen, Navigation Shortcuts -->
             <div class="flex items-center gap-2">
                 <!-- Sound Toggle -->
                 <button
                     type="button"
                     @click="soundEnabled = !soundEnabled"
-                    class="p-2 rounded-xl border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                    class="p-2.5 rounded-xl border border-[#E8DFD1] bg-white text-[#5C4A3E] hover:text-[#231812] hover:bg-[#FAF7F2] transition-colors cursor-pointer shadow-2xs"
                     :title="soundEnabled ? 'Bunyi Notifikasi Aktif' : 'Bunyi Senyap'"
                 >
-                    <Volume2 v-if="soundEnabled" class="w-5 h-5 text-amber-400" />
-                    <VolumeX v-else class="w-5 h-5 text-slate-500" />
+                    <Volume2 v-if="soundEnabled" class="w-4 h-4 text-[#A8421E]" />
+                    <VolumeX v-else class="w-4 h-4 text-[#7A6A60]" />
                 </button>
 
                 <!-- Fullscreen Button -->
                 <button
                     type="button"
                     @click="toggleFullscreen"
-                    class="p-2 rounded-xl border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
-                    title="Layar Penuh Kiosk/TV"
+                    class="p-2.5 rounded-xl border border-[#E8DFD1] bg-white text-[#5C4A3E] hover:text-[#231812] hover:bg-[#FAF7F2] transition-colors cursor-pointer shadow-2xs"
+                    title="Layar Penuh KDS"
                 >
-                    <Maximize v-if="!isFullscreen" class="w-5 h-5" />
-                    <Minimize v-else class="w-5 h-5" />
+                    <Maximize v-if="!isFullscreen" class="w-4 h-4" />
+                    <Minimize v-else class="w-4 h-4" />
                 </button>
 
-                <!-- Shortcut links to other screens -->
-                <div class="h-6 w-px bg-slate-800 mx-1"></div>
+                <div class="h-6 w-px bg-[#E8DFD1] mx-1"></div>
 
+                <!-- Kasir POS Link -->
                 <a
                     href="/pos"
-                    class="px-3 py-1.5 rounded-xl border border-slate-800 bg-slate-900 hover:bg-slate-800 text-xs font-bold text-slate-200 transition-colors flex items-center gap-1.5 cursor-pointer"
+                    class="px-3 py-2 rounded-xl border border-[#E8DFD1] bg-white hover:bg-[#FAF7F2] text-xs font-bold text-[#231812] transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
                     title="Buka Kasir POS"
                 >
-                    <Store class="w-4 h-4 text-amber-400" />
+                    <Store class="w-4 h-4 text-[#A8421E]" />
                     <span class="hidden lg:inline">Kasir POS</span>
                 </a>
 
+                <!-- Layar TV Link -->
                 <a
                     href="/display"
                     target="_blank"
-                    class="px-3 py-1.5 rounded-xl border border-slate-800 bg-slate-900 hover:bg-slate-800 text-xs font-bold text-slate-200 transition-colors flex items-center gap-1.5 cursor-pointer"
+                    class="px-3 py-2 rounded-xl border border-[#E8DFD1] bg-white hover:bg-[#FAF7F2] text-xs font-bold text-[#231812] transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
                     title="Buka Layar TV Antrean"
                 >
-                    <Tv class="w-4 h-4 text-emerald-400" />
+                    <Tv class="w-4 h-4 text-[#15803D]" />
                     <span class="hidden lg:inline">Layar TV</span>
                 </a>
             </div>
@@ -314,92 +338,92 @@ onUnmounted(() => {
 
         <!-- Main Cards Grid Area -->
         <main class="flex-1 p-4 sm:p-6 overflow-y-auto overscroll-contain">
-            <!-- Empty State -->
+            <!-- Refined, Authentic Empty State (NO AI Dashed Box, NO Robotic Clichés) -->
             <div
                 v-if="filteredOrders.length === 0"
-                class="h-96 flex flex-col items-center justify-center text-center p-8 rounded-3xl border-2 border-dashed border-slate-800/80 bg-slate-900/30 text-slate-500 max-w-xl mx-auto my-12"
+                class="min-h-[50vh] flex flex-col items-center justify-center text-center p-8 max-w-md mx-auto my-12"
             >
-                <div class="w-16 h-16 rounded-2xl bg-slate-800/60 flex items-center justify-center mb-4 text-slate-400">
-                    <CheckCircle2 class="w-9 h-9 stroke-[1.5]" />
+                <div class="w-16 h-16 rounded-2xl bg-[#EFE8DE] text-[#7A6A60] flex items-center justify-center mb-4 border border-[#E8DFD1]">
+                    <UtensilsCrossed class="w-8 h-8 text-[#A8421E]" />
                 </div>
-                <h3 class="text-lg font-bold text-slate-200">Semua Masakan Sudah Selesai!</h3>
-                <p class="text-xs text-slate-400 mt-1 max-w-sm">
-                    Tidak ada pesanan aktif pada filter ini. Pesanan baru dari Kiosk / Kasir akan otomatis muncul dan membunyikan bel.
+                <h3 class="font-serif text-2xl font-bold text-[#231812] tracking-tight">Dapur Siap Melayani</h3>
+                <p class="text-xs text-[#7A6A60] mt-2 leading-relaxed">
+                    Belum ada antrean masakan yang menunggu saat ini. Setiap pesanan baru dari Kiosk atau Kasir akan otomatis muncul dan berbunyi di sini.
                 </p>
                 <button
                     type="button"
                     @click="fetchOrdersSilently"
-                    class="mt-4 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white transition-colors flex items-center gap-1.5 cursor-pointer"
+                    class="mt-5 px-4 py-2 rounded-xl bg-white border border-[#E8DFD1] text-xs font-semibold text-[#5C4A3E] hover:text-[#231812] hover:bg-[#FAF7F2] shadow-2xs transition-colors flex items-center gap-2 cursor-pointer"
                 >
-                    <RotateCcw class="w-3.5 h-3.5" />
-                    <span>Cek Ulang Pesanan</span>
+                    <RotateCcw class="w-3.5 h-3.5" :class="{ 'animate-spin': isSyncing }" />
+                    <span>Periksa Antrean</span>
                 </button>
             </div>
 
-            <!-- Orders Grid -->
+            <!-- Orders Grid: Physical Ticket Board Aesthetics -->
             <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-start">
                 <div
                     v-for="order in filteredOrders"
                     :key="order.id"
-                    class="rounded-2xl border flex flex-col justify-between transition-all duration-150 overflow-hidden shadow-lg"
+                    class="bg-white rounded-2xl border flex flex-col justify-between transition-all duration-150 overflow-hidden shadow-xs hover:shadow-md"
                     :class="[
                         order.kitchen_status === 'cooking'
-                            ? 'bg-slate-900/90 border-blue-500/50 ring-1 ring-blue-500/30'
+                            ? 'border-[#2563EB]/40 ring-2 ring-[#2563EB]/10'
                             : (order.kitchen_status === 'ready'
-                                ? 'bg-slate-900/90 border-emerald-500/50 ring-1 ring-emerald-500/30'
-                                : 'bg-slate-900/90 border-slate-800')
+                                ? 'border-[#15803D]/40 ring-2 ring-[#15803D]/10'
+                                : 'border-[#E8DFD1]')
                     ]"
                 >
-                    <!-- Card Header: Queue Number + Table + Timer -->
-                    <div class="p-3.5 border-b border-slate-800/80 bg-slate-950/60">
+                    <!-- Ticket Header: Order Number + Table / Bawa Pulang + Timer -->
+                    <div class="p-4 border-b border-[#E8DFD1] bg-[#FAF7F2]/60">
                         <div class="flex items-center justify-between gap-2">
-                            <!-- Queue Number & Table -->
+                            <!-- Queue Number & Service Type -->
                             <div>
-                                <div class="text-2xl font-black font-mono tracking-wider text-white">
+                                <div class="text-2xl font-black font-mono tracking-wider text-[#231812]">
                                     {{ order.order_number }}
                                 </div>
-                                <div class="flex items-center gap-1.5 mt-0.5">
+                                <div class="flex items-center gap-1.5 mt-1">
                                     <span
-                                        class="px-2 py-0.5 rounded-md text-xs font-black uppercase flex items-center gap-1"
-                                        :class="order.order_type === 'dine_in' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'"
+                                        class="px-2.5 py-0.5 rounded-md text-xs font-bold flex items-center gap-1 border"
+                                        :class="order.order_type === 'dine_in' ? 'bg-[#FAF7F2] text-[#A8421E] border-[#E8DFD1]' : 'bg-[#FAF7F2] text-[#5C4A3E] border-[#E8DFD1]'"
                                     >
-                                        <UtensilsCrossed v-if="order.order_type === 'dine_in'" class="w-3.5 h-3.5" />
-                                        <ShoppingBag v-else class="w-3.5 h-3.5" />
+                                        <UtensilsCrossed v-if="order.order_type === 'dine_in'" class="w-3.5 h-3.5 text-[#A8421E]" />
+                                        <ShoppingBag v-else class="w-3.5 h-3.5 text-[#7A6A60]" />
                                         <span>{{ order.order_type === 'dine_in' ? `Meja ${order.table_number || '-'}` : 'Bawa Pulang' }}</span>
                                     </span>
-                                    <span class="text-xs text-slate-400 font-semibold truncate max-w-[100px]">
+                                    <span class="text-xs text-[#5C4A3E] font-semibold truncate max-w-[110px]">
                                         {{ order.customer_name }}
                                     </span>
                                 </div>
                             </div>
 
-                            <!-- Cooking Timer & Status Badge -->
+                            <!-- Cooking Timer & Stage Badge -->
                             <div class="text-right flex flex-col items-end">
                                 <!-- Elapsed timer -->
                                 <div
-                                    class="px-2.5 py-1 rounded-lg text-xs font-mono font-black flex items-center gap-1 border"
+                                    class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1 border"
                                     :class="[
                                         getElapsedMinutes(order.created_at) >= 10
-                                            ? 'bg-rose-500/20 text-rose-400 border-rose-500/50 animate-pulse'
+                                            ? 'bg-rose-50 text-rose-700 border-rose-200'
                                             : (getElapsedMinutes(order.created_at) >= 5
-                                                ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                                                : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30')
+                                                ? 'bg-amber-50 text-amber-800 border-amber-200'
+                                                : 'bg-emerald-50 text-emerald-800 border-emerald-200')
                                     ]"
                                     title="Waktu tunggu sejak pesanan masuk"
                                 >
-                                    <Clock class="w-3 h-3" />
+                                    <Clock class="w-3.5 h-3.5" />
                                     <span>{{ getElapsedFormatted(order.created_at) }}</span>
                                 </div>
 
                                 <!-- Status Badge -->
                                 <span
-                                    class="text-[10px] font-bold uppercase mt-1 px-1.5 py-0.2 rounded"
+                                    class="text-[10px] font-bold uppercase mt-1.5 px-2 py-0.5 rounded-md border"
                                     :class="[
                                         order.kitchen_status === 'cooking'
-                                            ? 'text-blue-400 bg-blue-500/10'
+                                            ? 'text-blue-800 bg-blue-50 border-blue-200'
                                             : (order.kitchen_status === 'ready'
-                                                ? 'text-emerald-400 bg-emerald-500/10'
-                                                : 'text-amber-400 bg-amber-500/10')
+                                                ? 'text-emerald-800 bg-emerald-50 border-emerald-200'
+                                                : 'text-amber-800 bg-amber-50 border-amber-200')
                                     ]"
                                 >
                                     {{
@@ -412,27 +436,27 @@ onUnmounted(() => {
                         </div>
                     </div>
 
-                    <!-- Items List (Large & Clear for Cooks) -->
-                    <div class="p-4 space-y-2.5 max-h-72 overflow-y-auto overscroll-contain divide-y divide-slate-800/50">
+                    <!-- Items List (High-contrast, Large & Clear for Busy Cooks) -->
+                    <div class="p-4 space-y-3 max-h-72 overflow-y-auto overscroll-contain divide-y divide-[#E8DFD1]/60">
                         <div
                             v-for="item in order.items"
                             :key="item.id"
-                            class="pt-2 first:pt-0"
+                            class="pt-2.5 first:pt-0"
                         >
-                            <div class="flex items-start gap-2">
-                                <span class="w-7 h-7 rounded-lg bg-slate-800 text-white font-mono font-black text-sm flex items-center justify-center shrink-0 border border-slate-700">
+                            <div class="flex items-start gap-2.5">
+                                <span class="w-7 h-7 rounded-lg bg-[#231812] text-white font-mono font-bold text-xs flex items-center justify-center shrink-0 shadow-2xs">
                                     {{ item.quantity }}x
                                 </span>
-                                <div class="flex-1">
-                                    <div class="font-bold text-sm text-slate-100 leading-snug">
+                                <div class="flex-1 min-w-0">
+                                    <div class="font-bold text-sm text-[#231812] leading-snug">
                                         {{ item.product?.name || 'Menu' }}
                                     </div>
-                                    <!-- High-visibility Kitchen Note -->
+                                    <!-- High-visibility Kitchen Note (Sambal dipisah, dll) -->
                                     <div
                                         v-if="item.notes"
-                                        class="mt-1 px-2 py-0.5 rounded-md bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold leading-tight"
+                                        class="mt-1.5 px-2.5 py-1 rounded-md bg-[#FEF3C7] border border-[#FDE68A] text-[#92400E] text-xs font-bold leading-tight"
                                     >
-                                        <span class="text-amber-400 uppercase text-[10px] font-black mr-1">NOTE:</span>
+                                        <span class="text-[#B45309] uppercase text-[10px] font-black mr-1">CATATAN:</span>
                                         <span>{{ item.notes }}</span>
                                     </div>
                                 </div>
@@ -440,14 +464,14 @@ onUnmounted(() => {
                         </div>
                     </div>
 
-                    <!-- Card Footer Actions -->
-                    <div class="p-3 border-t border-slate-800/80 bg-slate-950/40 flex items-center gap-2">
-                        <!-- Print Ticket button -->
+                    <!-- Card Footer Actions (Tactile, Clear Touch Targets) -->
+                    <div class="p-3 border-t border-[#E8DFD1] bg-[#FAF7F2]/40 flex items-center gap-2">
+                        <!-- Print Ticket thermal button -->
                         <button
                             type="button"
                             @click="printKitchenSlip(order)"
-                            class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors cursor-pointer shrink-0"
-                            title="Cetak Tiket Kertas Thermal"
+                            class="p-2.5 rounded-xl border border-[#E8DFD1] bg-white hover:bg-[#FAF7F2] text-[#7A6A60] hover:text-[#231812] transition-colors cursor-pointer shrink-0 shadow-2xs"
+                            title="Cetak Tiket Kertas Dapur"
                         >
                             <Printer class="w-4 h-4" />
                         </button>
@@ -458,7 +482,7 @@ onUnmounted(() => {
                             v-if="order.kitchen_status === 'queued'"
                             type="button"
                             @click="startCooking(order)"
-                            class="flex-1 h-11 rounded-xl bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
+                            class="flex-1 h-11 rounded-xl bg-[#A8421E] hover:bg-[#8F3314] active:scale-[0.99] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
                         >
                             <Flame class="w-4 h-4" />
                             <span>Mulai Masak</span>
@@ -469,7 +493,7 @@ onUnmounted(() => {
                             v-else-if="order.kitchen_status === 'cooking'"
                             type="button"
                             @click="markReady(order)"
-                            class="flex-1 h-11 rounded-xl bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
+                            class="flex-1 h-11 rounded-xl bg-[#15803D] hover:bg-[#166534] active:scale-[0.99] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
                         >
                             <CheckCircle2 class="w-4 h-4" />
                             <span>Siap Saji & Panggil</span>
@@ -480,17 +504,17 @@ onUnmounted(() => {
                             <button
                                 type="button"
                                 @click="recallOrder(order)"
-                                class="px-3 h-11 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 font-bold text-xs flex items-center justify-center gap-1 transition-colors cursor-pointer"
+                                class="px-3 h-11 rounded-xl bg-white hover:bg-[#FAF7F2] text-[#231812] border border-[#E8DFD1] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
                                 title="Panggil Ulang ke Layar TV"
                             >
-                                <Bell class="w-3.5 h-3.5" />
+                                <Bell class="w-3.5 h-3.5 text-[#A8421E]" />
                                 <span>Panggil</span>
                             </button>
 
                             <button
                                 type="button"
                                 @click="markCompleted(order)"
-                                class="flex-1 h-11 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors cursor-pointer"
+                                class="flex-1 h-11 rounded-xl bg-[#231812] hover:bg-[#3D281F] active:scale-[0.99] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors cursor-pointer"
                             >
                                 <Check class="w-4 h-4 stroke-[2.5]" />
                                 <span>Selesai / Diambil</span>

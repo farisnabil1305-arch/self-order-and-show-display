@@ -106,24 +106,24 @@ async function saveSettings() {
     >
         <div class="w-full max-w-4xl bg-white rounded-3xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
             <!-- Header -->
-            <div class="px-6 py-4 bg-gradient-to-r from-amber-900 via-amber-800 to-amber-950 text-white flex items-center justify-between shadow-md shrink-0">
+            <div class="px-6 py-4 bg-[#FAF7F2] border-b border-[#E8DFD1] text-[#231812] flex items-center justify-between shrink-0">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20">
-                        <Store class="w-5 h-5 text-amber-300" />
+                    <div class="w-10 h-10 rounded-xl bg-[#231812] text-[#F5EBE1] flex items-center justify-center border border-[#3D281F]">
+                        <Store class="w-5 h-5 text-[#F5EBE1]" />
                     </div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <h2 class="text-base font-bold">Pengaturan Identitas Toko & Kustomisasi Struk</h2>
-                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-stone-950">
-                                PROFIL RESTORAN
+                            <h2 class="font-serif text-base font-bold text-[#231812]">Identitas Resto & Format Struk</h2>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#EFE8DE] text-[#7A6A60] border border-[#E8DFD1]">
+                                Profil
                             </span>
                         </div>
-                        <p class="text-xs text-amber-200/80">Atur nama resto, cabang, alamat, kontak, dan pesan ucapan di kaki struk kasir.</p>
+                        <p class="text-xs text-[#7A6A60]">Atur nama resto, cabang, alamat, kontak, dan pesan ucapan struk kasir.</p>
                     </div>
                 </div>
                 <button
                     @click="emit('close')"
-                    class="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer"
+                    class="p-2 text-[#7A6A60] hover:text-[#231812] hover:bg-[#EFE8DE] rounded-xl transition-all cursor-pointer"
                 >
                     <X class="w-5 h-5" />
                 </button>

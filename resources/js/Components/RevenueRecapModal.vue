@@ -194,14 +194,14 @@ function printRecapSlip() {
     >
         <div class="bg-white rounded-2xl border border-slate-200 max-w-4xl w-full max-h-[92vh] flex flex-col shadow-xl overflow-hidden">
             <!-- Modal Header -->
-            <div class="p-4 sm:p-5 border-b border-slate-200 bg-slate-50/70 flex items-center justify-between shrink-0">
+            <div class="p-4 sm:p-5 border-b border-[#E8DFD1] bg-[#FAF7F2] flex items-center justify-between shrink-0">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center shadow-xs">
-                        <BarChart3 class="w-5 h-5" />
+                    <div class="w-10 h-10 rounded-xl bg-[#231812] text-[#F5EBE1] flex items-center justify-center border border-[#3D281F]">
+                        <BarChart3 class="w-5 h-5 text-[#F5EBE1]" />
                     </div>
                     <div>
-                        <h2 class="text-base sm:text-lg font-bold text-slate-900">Rekap Omset & Laporan Penjualan</h2>
-                        <p class="text-xs text-slate-500">Ringkasan pendapatan kasir harian, mingguan, dan bulanan</p>
+                        <h2 class="font-serif text-base sm:text-lg font-bold text-[#231812]">Rekap Omset & Laporan Penjualan</h2>
+                        <p class="text-xs text-[#7A6A60]">Ringkasan pendapatan kasir harian, mingguan, dan bulanan</p>
                     </div>
                 </div>
 

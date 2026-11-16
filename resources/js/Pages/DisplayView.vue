@@ -13,8 +13,7 @@ import {
     Bell,
     Wifi,
     UtensilsCrossed,
-    ShoppingBag,
-    Sparkles
+    ShoppingBag
 } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -204,14 +203,14 @@ onUnmounted(() => {
 <template>
     <Head title="Layar Antrean Pelanggan - Soto Betawi Parsoey" />
 
-    <div class="h-screen w-screen bg-slate-100 flex flex-col font-sans select-none overflow-hidden relative text-slate-900">
+    <div class="h-screen w-screen bg-[#FAF7F2] flex flex-col font-sans select-none overflow-hidden relative text-[#231812]">
         <!-- Audio Unlock Notification (Discreet pill if browser blocks sound before click) -->
         <div
             v-if="!audioUnlocked"
             @click="unlockAudio"
-            class="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-white/95 border border-amber-300 text-amber-950 px-5 py-2.5 rounded-full shadow-xl flex items-center gap-2.5 cursor-pointer hover:bg-amber-50 transition-all backdrop-blur-md"
+            class="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-white/95 border border-[#E8DFD1] text-[#231812] px-5 py-2.5 rounded-full shadow-lg flex items-center gap-2.5 cursor-pointer hover:bg-[#FAF7F2] transition-all backdrop-blur-md"
         >
-            <Volume2 class="w-4 h-4 text-amber-700" />
+            <Volume2 class="w-4 h-4 text-[#A8421E]" />
             <span class="text-xs font-bold">Sentuh layar untuk mengaktifkan bel panggilan suara</span>
         </div>
 
@@ -226,86 +225,86 @@ onUnmounted(() => {
         >
             <div
                 v-if="activeCallingOrder"
-                class="fixed top-6 inset-x-4 max-w-xl mx-auto z-40 bg-white border-2 border-emerald-500 rounded-3xl p-6 sm:p-7 text-slate-900 shadow-2xl flex flex-col items-center text-center animate-in zoom-in-95 duration-200"
+                class="fixed top-6 inset-x-4 max-w-xl mx-auto z-40 bg-white border-2 border-[#15803D] rounded-3xl p-6 sm:p-7 text-[#231812] shadow-2xl flex flex-col items-center text-center animate-in zoom-in-95 duration-200"
             >
-                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold tracking-wider uppercase mb-2 border border-emerald-200">
-                    <span class="w-2 h-2 rounded-full bg-emerald-600 animate-ping"></span>
-                    <span>Panggilan Pengambilan Pesanan</span>
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F0FDF4] text-[#15803D] text-xs font-bold tracking-wider uppercase mb-2 border border-[#BBF7D0]">
+                    <span class="w-2 h-2 rounded-full bg-[#15803D]"></span>
+                    <span>Pesanan Siap Diambil</span>
                 </div>
 
-                <div class="text-5xl sm:text-6xl font-black font-mono tracking-widest my-1 text-emerald-700">
+                <div class="text-5xl sm:text-6xl font-black font-mono tracking-widest my-1 text-[#15803D]">
                     {{ activeCallingOrder.order_number }}
                 </div>
 
                 <div class="text-lg sm:text-xl font-bold flex flex-wrap items-center justify-center gap-2 mt-1">
-                    <span class="text-slate-800">Atas Nama: <strong class="text-amber-900">{{ activeCallingOrder.customer_name || 'Pelanggan' }}</strong></span>
-                    <span class="text-slate-300">•</span>
-                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-200">
+                    <span class="text-[#231812]">Atas Nama: <strong class="text-[#A8421E]">{{ activeCallingOrder.customer_name || 'Pelanggan' }}</strong></span>
+                    <span class="text-[#D3C5B4]">•</span>
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#FAF7F2] text-[#231812] border border-[#E8DFD1]">
                         {{ activeCallingOrder.order_type === 'dine_in' ? `Meja ${activeCallingOrder.table_number || '-'}` : 'Bawa Pulang' }}
                     </span>
                 </div>
 
-                <p class="text-xs text-slate-500 mt-2 font-medium">
-                    Silakan menuju konter pengambilan pesanan untuk menikmati hidangan Anda.
+                <p class="text-xs text-[#7A6A60] mt-2 font-medium">
+                    Silakan menuju ke konter pengambilan pesanan untuk menikmati hidangan Anda.
                 </p>
             </div>
         </transition>
 
         <!-- Modern Header matching Self-Order Kiosk theme -->
-        <header class="h-20 bg-white border-b border-slate-200 px-6 sm:px-8 flex items-center justify-between shrink-0 shadow-2xs">
+        <header class="h-20 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8DFD1] px-6 sm:px-8 flex items-center justify-between shrink-0">
             <!-- Brand / Logo matching KioskView -->
             <div class="flex items-center gap-3.5">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-900 via-amber-800 to-amber-950 flex items-center justify-center text-white font-black text-sm tracking-wider shadow-xs border border-amber-900/30">
+                <div class="w-11 h-11 rounded-2xl bg-[#231812] flex items-center justify-center text-[#F5EBE1] font-serif font-black text-base tracking-wider shadow-sm border border-[#3D281F]">
                     SBP
                 </div>
                 <div>
-                    <h1 class="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-tight uppercase">
-                        {{ storeSettings.store_name || 'SOTO BETAWI PARSOEY' }}
+                    <h1 class="font-serif text-base sm:text-lg font-bold text-[#231812] tracking-tight leading-tight uppercase">
+                        {{ storeSettings.store_name || 'Soto Betawi Parsoey' }}
                     </h1>
-                    <p class="text-xs text-slate-500 font-semibold">Layar Antrean Pelanggan</p>
+                    <p class="text-xs text-[#7A6A60] font-medium">Layar Antrean Pelanggan</p>
                 </div>
             </div>
 
             <!-- Middle Free WiFi Info (Kiosk pill style) -->
-            <div v-if="storeSettings.wifi_ssid || storeSettings.wifi_password" class="hidden md:flex items-center gap-2.5 px-4 py-1.5 rounded-xl bg-amber-50 border border-amber-200/80 shadow-2xs text-xs font-semibold text-amber-950">
-                <Wifi class="w-3.5 h-3.5 text-amber-700" />
-                <span>Wi-Fi: <strong class="text-amber-950 font-bold">{{ storeSettings.wifi_ssid || 'Resto' }}</strong></span>
-                <span class="text-amber-300">•</span>
-                <span>Sandi: <strong class="text-amber-900 font-mono font-bold">{{ storeSettings.wifi_password || '-' }}</strong></span>
+            <div v-if="storeSettings.wifi_ssid || storeSettings.wifi_password" class="hidden md:flex items-center gap-2.5 px-4 py-1.5 rounded-xl bg-white border border-[#E8DFD1] shadow-2xs text-xs font-semibold text-[#231812]">
+                <Wifi class="w-3.5 h-3.5 text-[#A8421E]" />
+                <span>Wi-Fi: <strong class="text-[#231812] font-bold">{{ storeSettings.wifi_ssid || 'Resto' }}</strong></span>
+                <span class="text-[#D3C5B4]">•</span>
+                <span>Sandi: <strong class="text-[#A8421E] font-mono font-bold">{{ storeSettings.wifi_password || '-' }}</strong></span>
             </div>
 
             <!-- Right Clock & Controls -->
             <div class="flex items-center gap-4">
                 <div class="text-right">
-                    <div class="text-xl sm:text-2xl font-black font-mono tracking-tight text-slate-900 leading-tight">
+                    <div class="text-xl sm:text-2xl font-bold font-mono tracking-tight text-[#231812] leading-tight">
                         {{ currentTime }}
                     </div>
-                    <div class="text-[11px] text-slate-500 font-medium capitalize">
+                    <div class="text-[11px] text-[#7A6A60] font-medium capitalize">
                         {{ currentDate }}
                     </div>
                 </div>
 
-                <div class="h-7 w-px bg-slate-200"></div>
+                <div class="h-7 w-px bg-[#E8DFD1]"></div>
 
                 <div class="flex items-center gap-1.5">
                     <button
                         type="button"
                         @click="soundEnabled = !soundEnabled"
-                        class="p-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors border border-slate-200 cursor-pointer shadow-2xs"
+                        class="p-2.5 rounded-xl text-[#5C4A3E] hover:text-[#231812] hover:bg-white transition-colors border border-[#E8DFD1] cursor-pointer shadow-2xs"
                         :title="soundEnabled ? 'Matikan Suara Bel' : 'Nyalakan Suara Bel'"
                     >
-                        <Volume2 v-if="soundEnabled" class="w-4 h-4 text-amber-700" />
-                        <VolumeX v-else class="w-4 h-4 text-slate-400" />
+                        <Volume2 v-if="soundEnabled" class="w-4 h-4 text-[#A8421E]" />
+                        <VolumeX v-else class="w-4 h-4 text-[#7A6A60]" />
                     </button>
 
                     <button
                         type="button"
                         @click="toggleFullscreen"
-                        class="p-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors border border-slate-200 cursor-pointer shadow-2xs"
+                        class="p-2.5 rounded-xl text-[#5C4A3E] hover:text-[#231812] hover:bg-white transition-colors border border-[#E8DFD1] cursor-pointer shadow-2xs"
                         title="Layar Penuh TV"
                     >
-                        <Maximize v-if="!isFullscreen" class="w-4 h-4 text-slate-700" />
-                        <Minimize v-else class="w-4 h-4 text-slate-700" />
+                        <Maximize v-if="!isFullscreen" class="w-4 h-4" />
+                        <Minimize v-else class="w-4 h-4" />
                     </button>
                 </div>
             </div>
@@ -314,48 +313,48 @@ onUnmounted(() => {
         <!-- Main Body: Two Clean Cards with Kiosk Aesthetic -->
         <main class="flex-1 min-h-0 p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-2 gap-5 overflow-hidden">
             <!-- ================= LEFT COLUMN: SEDANG DISIAPKAN (PREPARING) ================= -->
-            <section class="bg-white rounded-3xl border border-slate-200 shadow-sm flex flex-col h-full overflow-hidden">
+            <section class="bg-white rounded-3xl border border-[#E8DFD1] shadow-xs flex flex-col h-full overflow-hidden">
                 <!-- Column Header -->
-                <div class="p-5 sm:p-6 border-b border-slate-100 flex items-center justify-between shrink-0 bg-gradient-to-r from-amber-50/60 via-white to-transparent">
+                <div class="p-5 sm:p-6 border-b border-[#E8DFD1] flex items-center justify-between shrink-0 bg-[#FAF7F2]/50">
                     <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-900 flex items-center justify-center border border-amber-200/80 shadow-2xs">
-                            <Flame class="w-6 h-6 text-amber-700" />
+                        <div class="w-11 h-11 rounded-2xl bg-[#EFE8DE] text-[#231812] flex items-center justify-center border border-[#E8DFD1]">
+                            <Flame class="w-6 h-6 text-[#A8421E]" />
                         </div>
                         <div>
-                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Sedang Disiapkan</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Pesanan sedang diracik hangat oleh koki di dapur</p>
+                            <h2 class="font-serif text-xl sm:text-2xl font-bold text-[#231812] tracking-tight">Sedang Disiapkan</h2>
+                            <p class="text-xs text-[#7A6A60] font-medium mt-0.5">Pesanan sedang diracik hangat oleh koki di dapur</p>
                         </div>
                     </div>
 
-                    <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-200/80 shadow-2xs font-mono">
+                    <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#FAF7F2] text-[#A8421E] border border-[#E8DFD1] shadow-2xs font-mono">
                         {{ preparingOrders.length }} Pesanan
                     </span>
                 </div>
 
                 <!-- Numbers List -->
                 <div class="flex-1 overflow-y-auto overscroll-contain p-5 sm:p-6 min-h-0">
-                    <div v-if="preparingOrders.length === 0" class="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
-                        <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-3">
-                            <Clock class="w-8 h-8 text-slate-300" />
+                    <div v-if="preparingOrders.length === 0" class="h-full flex flex-col items-center justify-center text-center p-6 text-[#7A6A60]">
+                        <div class="w-16 h-16 rounded-full bg-[#FAF7F2] flex items-center justify-center mb-3 border border-[#E8DFD1]">
+                            <Clock class="w-8 h-8 text-[#D3C5B4]" />
                         </div>
-                        <p class="text-sm font-bold text-slate-600">Tidak ada antrean dalam proses racikan</p>
-                        <p class="text-xs text-slate-400 mt-1">Pesanan baru akan muncul otomatis di sini.</p>
+                        <p class="text-sm font-bold text-[#231812]">Tidak ada antrean dalam proses racikan</p>
+                        <p class="text-xs text-[#7A6A60] mt-1">Pesanan baru akan muncul otomatis di sini.</p>
                     </div>
 
                     <div v-else class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
                         <div
                             v-for="order in preparingOrders"
                             :key="order.id"
-                            class="p-4 rounded-2xl bg-slate-50/90 hover:bg-amber-50/50 border border-slate-200/80 hover:border-amber-300 shadow-2xs flex flex-col justify-between transition-all"
+                            class="p-4 rounded-2xl bg-[#FAF7F2]/60 hover:bg-[#FAF7F2] border border-[#E8DFD1] shadow-2xs flex flex-col justify-between transition-all"
                         >
-                            <div class="text-2xl sm:text-3xl font-black font-mono tracking-wider text-slate-900">
+                            <div class="text-2xl sm:text-3xl font-bold font-mono tracking-wider text-[#231812]">
                                 {{ order.order_number }}
                             </div>
-                            <div class="mt-3 pt-2.5 border-t border-slate-200/70 flex items-center justify-between text-xs">
-                                <span class="font-bold text-slate-700 truncate max-w-[100px]">
+                            <div class="mt-3 pt-2.5 border-t border-[#E8DFD1] flex items-center justify-between text-xs">
+                                <span class="font-bold text-[#231812] truncate max-w-[100px]">
                                     {{ order.customer_name }}
                                 </span>
-                                <span class="text-[11px] font-bold text-amber-900 bg-amber-100 px-2 py-0.5 rounded-md border border-amber-200/60">
+                                <span class="text-[11px] font-bold text-[#A8421E] bg-[#F5E6E0] px-2 py-0.5 rounded-md">
                                     {{ order.order_type === 'dine_in' ? `Meja ${order.table_number || '-'}` : 'Bungkus' }}
                                 </span>
                             </div>
@@ -365,32 +364,32 @@ onUnmounted(() => {
             </section>
 
             <!-- ================= RIGHT COLUMN: SIAP DIAMBIL (READY FOR PICKUP) ================= -->
-            <section class="bg-white rounded-3xl border border-emerald-200 shadow-sm flex flex-col h-full overflow-hidden">
+            <section class="bg-white rounded-3xl border border-[#86EFAC]/60 shadow-xs flex flex-col h-full overflow-hidden">
                 <!-- Column Header -->
-                <div class="p-5 sm:p-6 border-b border-emerald-100 flex items-center justify-between shrink-0 bg-gradient-to-r from-emerald-50/70 via-white to-transparent">
+                <div class="p-5 sm:p-6 border-b border-[#86EFAC]/40 flex items-center justify-between shrink-0 bg-[#F0FDF4]/50">
                     <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-900 flex items-center justify-center border border-emerald-200/80 shadow-2xs">
-                            <CheckCircle2 class="w-6 h-6 text-emerald-700" />
+                        <div class="w-11 h-11 rounded-2xl bg-[#DCFCE7] text-[#15803D] flex items-center justify-center border border-[#BBF7D0]">
+                            <CheckCircle2 class="w-6 h-6 text-[#15803D]" />
                         </div>
                         <div>
-                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Siap Diambil</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Silakan menuju ke konter pengambilan pesanan</p>
+                            <h2 class="font-serif text-xl sm:text-2xl font-bold text-[#231812] tracking-tight">Siap Diambil</h2>
+                            <p class="text-xs text-[#7A6A60] font-medium mt-0.5">Silakan menuju ke konter pengambilan pesanan</p>
                         </div>
                     </div>
 
-                    <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-2xs font-mono">
+                    <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#F0FDF4] text-[#15803D] border border-[#BBF7D0] shadow-2xs font-mono">
                         {{ readyOrders.length }} Siap Saji
                     </span>
                 </div>
 
                 <!-- Numbers List -->
                 <div class="flex-1 overflow-y-auto overscroll-contain p-5 sm:p-6 min-h-0">
-                    <div v-if="readyOrders.length === 0" class="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
-                        <div class="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mb-3">
-                            <CheckCircle2 class="w-8 h-8 text-emerald-300" />
+                    <div v-if="readyOrders.length === 0" class="h-full flex flex-col items-center justify-center text-center p-6 text-[#7A6A60]">
+                        <div class="w-16 h-16 rounded-full bg-[#F0FDF4] flex items-center justify-center mb-3 border border-[#BBF7D0]">
+                            <CheckCircle2 class="w-8 h-8 text-[#86EFAC]" />
                         </div>
-                        <p class="text-sm font-bold text-slate-600">Belum ada pesanan yang siap saji</p>
-                        <p class="text-xs text-slate-400 mt-1">Nomor pesanan yang selesai dimasak akan tampil di sini.</p>
+                        <p class="text-sm font-bold text-[#231812]">Belum ada pesanan yang siap saji</p>
+                        <p class="text-xs text-[#7A6A60] mt-1">Nomor pesanan yang selesai dimasak akan tampil di sini.</p>
                     </div>
 
                     <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -400,40 +399,34 @@ onUnmounted(() => {
                             class="p-5 rounded-2xl border-2 flex flex-col justify-between transition-all duration-300 shadow-xs"
                             :class="[
                                 activeCallingOrder?.id === order.id
-                                    ? 'bg-gradient-to-br from-emerald-600 via-emerald-600 to-teal-700 text-white border-emerald-500 ring-4 ring-emerald-300/50 shadow-xl scale-[1.02]'
-                                    : 'bg-emerald-50/60 hover:bg-emerald-50 border-emerald-300/80 hover:border-emerald-400'
+                                    ? 'bg-[#F0FDF4] border-[#15803D] ring-4 ring-[#15803D]/15 shadow-md scale-[1.01]'
+                                    : 'bg-[#F0FDF4]/40 hover:bg-[#F0FDF4] border-[#BBF7D0]'
                             ]"
                         >
                             <div class="flex items-baseline justify-between">
                                 <span
-                                    class="text-4xl sm:text-5xl font-black font-mono tracking-wider"
-                                    :class="activeCallingOrder?.id === order.id ? 'text-white' : 'text-emerald-700'"
+                                    class="text-4xl sm:text-5xl font-black font-mono tracking-wider text-[#15803D]"
                                 >
                                     {{ order.order_number }}
                                 </span>
                                 <span
-                                    class="px-2.5 py-0.5 rounded-full text-xs font-black tracking-wider uppercase"
-                                    :class="activeCallingOrder?.id === order.id ? 'bg-white/20 text-white' : 'bg-emerald-200/70 text-emerald-900'"
+                                    class="px-2.5 py-0.5 rounded-full text-xs font-bold tracking-wider uppercase"
+                                    :class="activeCallingOrder?.id === order.id ? 'bg-[#15803D] text-white' : 'bg-[#DCFCE7] text-[#15803D]'"
                                 >
                                     {{ activeCallingOrder?.id === order.id ? 'DIPANGGIL' : 'SIAP' }}
                                 </span>
                             </div>
 
                             <div
-                                class="mt-4 pt-3 border-t flex items-center justify-between"
-                                :class="activeCallingOrder?.id === order.id ? 'border-white/20' : 'border-emerald-200/70'"
+                                class="mt-4 pt-3 border-t border-[#BBF7D0] flex items-center justify-between"
                             >
                                 <div
-                                    class="text-base font-bold truncate max-w-[150px]"
-                                    :class="activeCallingOrder?.id === order.id ? 'text-white' : 'text-slate-900'"
+                                    class="text-base font-bold truncate max-w-[150px] text-[#231812]"
                                 >
                                     {{ order.customer_name }}
                                 </div>
                                 <span
-                                    class="px-2.5 py-1 rounded-lg text-xs font-bold shadow-2xs"
-                                    :class="activeCallingOrder?.id === order.id
-                                        ? 'bg-white text-emerald-900'
-                                        : 'bg-white text-emerald-800 border border-emerald-200'"
+                                    class="px-2.5 py-1 rounded-lg text-xs font-bold bg-white text-[#15803D] border border-[#BBF7D0] shadow-2xs"
                                 >
                                     {{ order.order_type === 'dine_in' ? `Meja ${order.table_number || '-'}` : 'Bawa Pulang' }}
                                 </span>
@@ -445,10 +438,9 @@ onUnmounted(() => {
         </main>
 
         <!-- Running Marquee Ticker Footer (Teks Berjalan Kiosk-style) -->
-        <footer class="h-12 bg-white border-t border-slate-200 px-4 sm:px-6 shrink-0 flex items-center justify-between text-xs text-slate-600 overflow-hidden relative shadow-xs">
+        <footer class="h-12 bg-white border-t border-[#E8DFD1] px-4 sm:px-6 shrink-0 flex items-center justify-between text-xs text-[#5C4A3E] overflow-hidden relative shadow-xs">
             <!-- Left Info Badge -->
-            <div class="flex items-center gap-2 px-3 py-1 rounded-xl bg-gradient-to-r from-amber-900 via-amber-800 to-amber-950 text-white font-bold text-xs shrink-0 shadow-2xs z-10 border border-amber-900/30">
-                <Sparkles class="w-3.5 h-3.5 text-amber-300 shrink-0" />
+            <div class="flex items-center gap-2 px-3 py-1 rounded-xl bg-[#231812] text-white font-bold text-xs shrink-0 shadow-2xs z-10 border border-[#3D281F]">
                 <span class="tracking-wider uppercase text-[11px] font-black">INFO RESTO</span>
             </div>
 
@@ -456,77 +448,77 @@ onUnmounted(() => {
             <div class="flex-1 overflow-hidden relative mx-3 sm:mx-4 h-full flex items-center">
                 <div class="animate-marquee">
                     <!-- Segment 1 -->
-                    <div class="inline-flex items-center gap-6 text-xs font-semibold text-slate-700 pr-6 shrink-0">
+                    <div class="inline-flex items-center gap-6 text-xs font-semibold text-[#5C4A3E] pr-6 shrink-0">
                         <span class="inline-flex items-center gap-1.5">
-                            <strong class="text-amber-900 font-extrabold">{{ storeSettings.store_name || 'Soto Betawi Parsoey' }}</strong>
-                            <span class="text-slate-300">—</span>
-                            <span class="text-slate-600">{{ storeSettings.store_tagline || 'Cita Rasa Gurih Kuah Santan & Susu Rempah Asli Betawi' }}</span>
+                            <strong class="text-[#231812] font-bold">{{ storeSettings.store_name || 'Soto Betawi Parsoey' }}</strong>
+                            <span class="text-[#D3C5B4]">—</span>
+                            <span class="text-[#5C4A3E]">{{ storeSettings.store_tagline || 'Cita Rasa Gurih Kuah Santan & Susu Rempah Asli Betawi' }}</span>
                         </span>
 
-                        <span class="text-slate-300">•</span>
+                        <span class="text-[#D3C5B4]">•</span>
 
-                        <span v-if="storeSettings.store_address" class="inline-flex items-center gap-1.5 text-slate-600">
-                            <span class="text-slate-400 font-medium">Alamat:</span>
+                        <span v-if="storeSettings.store_address" class="inline-flex items-center gap-1.5 text-[#5C4A3E]">
+                            <span class="text-[#7A6A60] font-medium">Alamat:</span>
                             <span>{{ storeSettings.store_address }}</span>
-                            <span class="text-slate-300">•</span>
+                            <span class="text-[#D3C5B4]">•</span>
                         </span>
 
-                        <span v-if="storeSettings.store_phone" class="inline-flex items-center gap-1.5 text-slate-600">
-                            <span class="text-slate-400 font-medium">WhatsApp:</span>
-                            <span class="text-emerald-700 font-bold font-mono">{{ storeSettings.store_phone }}</span>
-                            <span class="text-slate-300">•</span>
+                        <span v-if="storeSettings.store_phone" class="inline-flex items-center gap-1.5 text-[#5C4A3E]">
+                            <span class="text-[#7A6A60] font-medium">WhatsApp:</span>
+                            <span class="text-[#15803D] font-bold font-mono">{{ storeSettings.store_phone }}</span>
+                            <span class="text-[#D3C5B4]">•</span>
                         </span>
 
-                        <span v-if="storeSettings.wifi_ssid" class="inline-flex items-center gap-1.5 text-slate-700">
-                            <span class="px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 text-[10px] font-bold">Free Wi-Fi</span>
+                        <span v-if="storeSettings.wifi_ssid" class="inline-flex items-center gap-1.5 text-[#231812]">
+                            <span class="px-2 py-0.5 rounded-md bg-[#EFE8DE] text-[#231812] text-[10px] font-bold">Free Wi-Fi</span>
                             <span class="font-bold">{{ storeSettings.wifi_ssid }}</span>
-                            <span class="text-slate-400">(Sandi: <strong class="font-mono text-slate-700">{{ storeSettings.wifi_password || '-' }}</strong>)</span>
-                            <span class="text-slate-300">•</span>
+                            <span class="text-[#7A6A60]">(Sandi: <strong class="font-mono text-[#231812]">{{ storeSettings.wifi_password || '-' }}</strong>)</span>
+                            <span class="text-[#D3C5B4]">•</span>
                         </span>
 
-                        <span class="inline-flex items-center gap-1.5 text-amber-900 font-bold">
-                            <span>🍲 Tunjukkan karcis nomor antrean saat mengambil hidangan di konter • Selamat menikmati hidangan Soto Betawi Parsoey!</span>
+                        <span class="inline-flex items-center gap-1.5 text-[#A8421E] font-bold">
+                            <span>Tunjukkan karcis nomor antrean saat mengambil hidangan di konter • Selamat menikmati hidangan Soto Betawi Parsoey!</span>
                         </span>
                     </div>
 
                     <!-- Segment 2 (Duplicate for seamless continuous loop) -->
-                    <div class="inline-flex items-center gap-6 text-xs font-semibold text-slate-700 pr-6 shrink-0">
+                    <div class="inline-flex items-center gap-6 text-xs font-semibold text-[#5C4A3E] pr-6 shrink-0">
                         <span class="inline-flex items-center gap-1.5">
-                            <strong class="text-amber-900 font-extrabold">{{ storeSettings.store_name || 'Soto Betawi Parsoey' }}</strong>
-                            <span class="text-slate-300">—</span>
-                            <span class="text-slate-600">{{ storeSettings.store_tagline || 'Cita Rasa Gurih Kuah Santan & Susu Rempah Asli Betawi' }}</span>
+                            <strong class="text-[#231812] font-bold">{{ storeSettings.store_name || 'Soto Betawi Parsoey' }}</strong>
+                            <span class="text-[#D3C5B4]">—</span>
+                            <span class="text-[#5C4A3E]">{{ storeSettings.store_tagline || 'Cita Rasa Gurih Kuah Santan & Susu Rempah Asli Betawi' }}</span>
                         </span>
 
-                        <span class="text-slate-300">•</span>
+                        <span class="text-[#D3C5B4]">•</span>
 
-                        <span v-if="storeSettings.store_address" class="inline-flex items-center gap-1.5 text-slate-600">
-                            <span class="text-slate-400 font-medium">Alamat:</span>
+                        <span v-if="storeSettings.store_address" class="inline-flex items-center gap-1.5 text-[#5C4A3E]">
+                            <span class="text-[#7A6A60] font-medium">Alamat:</span>
                             <span>{{ storeSettings.store_address }}</span>
-                            <span class="text-slate-300">•</span>
+                            <span class="text-[#D3C5B4]">•</span>
                         </span>
 
-                        <span v-if="storeSettings.store_phone" class="inline-flex items-center gap-1.5 text-slate-600">
-                            <span class="text-slate-400 font-medium">WhatsApp:</span>
-                            <span class="text-emerald-700 font-bold font-mono">{{ storeSettings.store_phone }}</span>
-                            <span class="text-slate-300">•</span>
+                        <span v-if="storeSettings.store_phone" class="inline-flex items-center gap-1.5 text-[#5C4A3E]">
+                            <span class="text-[#7A6A60] font-medium">WhatsApp:</span>
+                            <span class="text-[#15803D] font-bold font-mono">{{ storeSettings.store_phone }}</span>
+                            <span class="text-[#D3C5B4]">•</span>
                         </span>
 
-                        <span v-if="storeSettings.wifi_ssid" class="inline-flex items-center gap-1.5 text-slate-700">
-                            <span class="px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 text-[10px] font-bold">Free Wi-Fi</span>
+                        <span v-if="storeSettings.wifi_ssid" class="inline-flex items-center gap-1.5 text-[#231812]">
+                            <span class="px-2 py-0.5 rounded-md bg-[#EFE8DE] text-[#231812] text-[10px] font-bold">Free Wi-Fi</span>
                             <span class="font-bold">{{ storeSettings.wifi_ssid }}</span>
-                            <span class="text-slate-400">(Sandi: <strong class="font-mono text-slate-700">{{ storeSettings.wifi_password || '-' }}</strong>)</span>
-                            <span class="text-slate-300">•</span>
+                            <span class="text-[#7A6A60]">(Sandi: <strong class="font-mono text-[#231812]">{{ storeSettings.wifi_password || '-' }}</strong>)</span>
+                            <span class="text-[#D3C5B4]">•</span>
                         </span>
 
-                        <span class="inline-flex items-center gap-1.5 text-amber-900 font-bold">
-                            <span>🍲 Tunjukkan karcis nomor antrean saat mengambil hidangan di konter • Selamat menikmati hidangan Soto Betawi Parsoey!</span>
+                        <span class="inline-flex items-center gap-1.5 text-[#A8421E] font-bold">
+                            <span>Tunjukkan karcis nomor antrean saat mengambil hidangan di konter • Selamat menikmati hidangan Soto Betawi Parsoey!</span>
                         </span>
                     </div>
                 </div>
             </div>
 
             <!-- Right Fixed Year & Title -->
-            <div class="shrink-0 text-slate-400 font-mono text-[11px] hidden sm:flex items-center gap-1.5 pl-3 border-l border-slate-200 bg-white z-10">
+            <div class="shrink-0 text-[#7A6A60] font-mono text-[11px] hidden sm:flex items-center gap-1.5 pl-3 border-l border-[#E8DFD1] bg-white z-10">
                 <span>© {{ new Date().getFullYear() }}</span>
                 <span>•</span>
                 <span>Layar Antrean</span>

@@ -542,182 +542,199 @@ async function clearAllOrders(scope = 'history') {
         @saved="onPosPrinterSaved"
     />
 
-    <div class="h-screen flex flex-col bg-slate-50 font-sans text-slate-900 overflow-hidden">
-        <!-- Top App Bar -->
-        <header class="bg-white border-b border-slate-200 h-16 shrink-0 px-4 sm:px-6 flex items-center justify-between z-20">
+    <div class="h-screen flex flex-col bg-[#FAF7F2] font-sans text-[#231812] overflow-hidden">
+        <!-- Top App Bar (Grouped & Clean - NO Rainbow Button Clutter) -->
+        <header class="bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8DFD1] h-18 shrink-0 px-4 sm:px-6 flex items-center justify-between z-20">
             <!-- Left Branding -->
             <div class="flex items-center gap-4">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-xs tracking-wider">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-[#231812] text-[#F5EBE1] flex items-center justify-center font-serif font-black text-sm tracking-wider shadow-sm border border-[#3D281F]">
                         SBP
                     </div>
                     <div>
-                        <h1 class="text-sm font-bold text-slate-900 tracking-tight leading-tight">SOTO BETAWI PARSOEY KASIR</h1>
-                        <div class="flex items-center gap-2 text-[11px] text-slate-500 font-medium">
-                            <span>POS Terminal 01</span>
+                        <div class="flex items-center gap-2">
+                            <h1 class="font-serif text-base font-bold text-[#231812] tracking-tight leading-tight">Soto Betawi Parsoey</h1>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#EFE8DE] text-[#7A6A60] border border-[#E8DFD1]">
+                                Kasir POS
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-[#7A6A60] font-medium mt-0.5">
+                            <span>Terminal 01</span>
                             <span>•</span>
                             <!-- Live Sync Indicator -->
-                            <span class="inline-flex items-center gap-1.5 font-mono text-[10px] text-emerald-600" title="Koneksi aktif • Data sinkron otomatis">
-                                <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block" :class="{ 'opacity-40 animate-pulse': isSyncing }"></span>
-                                <span>Live Sync</span>
+                            <span class="inline-flex items-center gap-1.5 font-mono text-[11px] text-[#15803D]" title="Koneksi aktif • Data sinkron otomatis">
+                                <span class="w-2 h-2 rounded-full bg-[#15803D] inline-block" :class="{ 'opacity-40 animate-pulse': isSyncing }"></span>
+                                <span>Live Realtime</span>
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Middle Stats Quick Glance (shown on wide screens only to prevent header clutter) -->
-            <div class="hidden 2xl:flex items-center gap-6 px-4 py-1.5 bg-slate-50 rounded-lg border border-slate-200 text-xs shrink-0">
+            <!-- Middle Stats Quick Glance (shown on wide screens only) -->
+            <div class="hidden 2xl:flex items-center gap-6 px-4 py-2 bg-white rounded-xl border border-[#E8DFD1] text-xs shrink-0 shadow-2xs">
                 <div class="flex items-center gap-2">
-                    <Clock class="w-4 h-4 text-amber-600" />
-                    <span class="text-slate-500">Antrean:</span>
-                    <span class="font-bold text-slate-900 font-mono">{{ stats.pending_count }} Order</span>
+                    <Clock class="w-4 h-4 text-[#A8421E]" />
+                    <span class="text-[#7A6A60]">Antrean:</span>
+                    <span class="font-bold text-[#231812] font-mono">{{ stats.pending_count }} Order</span>
                 </div>
-                <div class="h-3 w-px bg-slate-200"></div>
+                <div class="h-3 w-px bg-[#E8DFD1]"></div>
                 <div class="flex items-center gap-2">
-                    <CheckCircle2 class="w-4 h-4 text-emerald-600" />
-                    <span class="text-slate-500">Selesai Hari Ini:</span>
-                    <span class="font-bold text-slate-900 font-mono">{{ stats.today_paid_count }} Order</span>
+                    <CheckCircle2 class="w-4 h-4 text-[#15803D]" />
+                    <span class="text-[#7A6A60]">Selesai Hari Ini:</span>
+                    <span class="font-bold text-[#231812] font-mono">{{ stats.today_paid_count }} Order</span>
                 </div>
-                <div class="h-3 w-px bg-slate-200"></div>
+                <div class="h-3 w-px bg-[#E8DFD1]"></div>
                 <div
                     @click="openRevenueModal"
-                    class="flex items-center gap-2 cursor-pointer hover:bg-slate-100/80 px-2 py-1 -my-1 rounded-md transition-colors"
+                    class="flex items-center gap-2 cursor-pointer hover:bg-[#FAF7F2] px-2 py-1 -my-1 rounded-md transition-colors"
                     title="Klik untuk membuka Rekap Omset Lengkap"
                 >
-                    <TrendingUp class="w-4 h-4 text-emerald-600" />
-                    <span class="text-slate-500">Omset:</span>
-                    <span class="font-bold text-emerald-700 font-mono">{{ formatRupiah(stats.today_revenue) }}</span>
+                    <TrendingUp class="w-4 h-4 text-[#15803D]" />
+                    <span class="text-[#7A6A60]">Omset:</span>
+                    <span class="font-bold text-[#15803D] font-mono">{{ formatRupiah(stats.today_revenue) }}</span>
                 </div>
             </div>
 
-            <!-- Right Controls -->
-            <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <!-- Denah Meja Button -->
-                <button
-                    type="button"
-                    @click="showTableMapModal = true"
-                    class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
-                    title="Buka Denah & Status Meja Restoran"
-                >
-                    <LayoutGrid class="w-3.5 h-3.5 text-amber-700" />
-                    <span class="hidden md:inline">Denah</span>
-                    <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 font-mono">
-                        {{ availableTablesCount }}
-                    </span>
-                </button>
+            <!-- Right Controls: Structured into 3 clear operational groups -->
+            <div class="flex items-center gap-2 shrink-0">
+                <!-- Group 1: Operasional Resto -->
+                <div class="flex items-center gap-1.5">
+                    <!-- Denah Meja Button -->
+                    <button
+                        type="button"
+                        @click="showTableMapModal = true"
+                        class="px-3 py-2 rounded-xl text-xs font-bold bg-white hover:bg-[#FAF7F2] text-[#231812] border border-[#E8DFD1] transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                        title="Buka Denah & Status Meja Restoran"
+                    >
+                        <LayoutGrid class="w-3.5 h-3.5 text-[#A8421E]" />
+                        <span class="hidden md:inline">Denah</span>
+                        <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-[#F2FAF4] text-[#15803D] border border-[#86EFAC]/60 font-mono">
+                            {{ availableTablesCount }}
+                        </span>
+                    </button>
 
-                <!-- Printer Struk Button -->
-                <button
-                    type="button"
-                    @click="showPrinterModal = true"
-                    class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-900 active:bg-slate-950 text-white transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
-                    title="Koneksi & Pengaturan Printer Struk Kasir"
-                >
-                    <Printer class="w-3.5 h-3.5 text-amber-400" />
-                    <span class="hidden md:inline">Printer</span>
-                    <span
-                        class="w-2 h-2 rounded-full"
-                        :class="isPrinterConnected ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'"
-                        :title="isPrinterConnected ? 'Printer Siap' : 'Printer Belum Konek'"
-                    ></span>
-                </button>
+                    <!-- Kelola Menu & Kategori Button -->
+                    <button
+                        type="button"
+                        @click="showMenuModal = true"
+                        class="px-3 py-2 rounded-xl text-xs font-bold bg-white hover:bg-[#FAF7F2] text-[#231812] border border-[#E8DFD1] transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                        title="Kelola Menu & Kategori (Input manual MySQL)"
+                    >
+                        <UtensilsCrossed class="w-3.5 h-3.5 text-[#A8421E]" />
+                        <span class="hidden lg:inline">Menu</span>
+                    </button>
+                </div>
 
-                <!-- Kelola Menu & Kategori Button -->
-                <button
-                    type="button"
-                    @click="showMenuModal = true"
-                    class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-800 hover:bg-amber-900 active:bg-amber-950 text-white transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
-                    title="Kelola Menu & Kategori (Input manual MySQL)"
-                >
-                    <UtensilsCrossed class="w-3.5 h-3.5 text-amber-300" />
-                    <span class="hidden lg:inline">Menu</span>
-                </button>
+                <div class="h-6 w-px bg-[#E8DFD1] mx-0.5"></div>
 
-                <!-- Rekap Omset Button -->
-                <button
-                    type="button"
-                    @click="openRevenueModal"
-                    class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
-                    title="Buka Rekap Omset Harian, Mingguan, dan Bulanan"
-                >
-                    <BarChart3 class="w-3.5 h-3.5" />
-                    <span class="hidden lg:inline">Omset</span>
-                </button>
+                <!-- Group 2: Laporan & Penutupan -->
+                <div class="flex items-center gap-1.5">
+                    <!-- Rekap Omset Button -->
+                    <button
+                        type="button"
+                        @click="openRevenueModal"
+                        class="px-3 py-2 rounded-xl text-xs font-bold bg-white hover:bg-[#FAF7F2] text-[#231812] border border-[#E8DFD1] transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                        title="Buka Rekap Omset Harian, Mingguan, dan Bulanan"
+                    >
+                        <BarChart3 class="w-3.5 h-3.5 text-[#D97706]" />
+                        <span class="hidden lg:inline">Omset</span>
+                    </button>
 
-                <!-- Tutup Kasir (Z-Report) Button -->
-                <button
-                    type="button"
-                    @click="printZReport"
-                    class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-slate-800 text-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
-                    title="Cetak Laporan Resmi Tutup Kasir Shift (Z-Report) ke Printer Thermal"
-                >
-                    <Printer class="w-3.5 h-3.5 text-amber-400" />
-                    <span class="hidden sm:inline">Tutup Kasir</span>
-                </button>
+                    <!-- Tutup Kasir (Z-Report) Button -->
+                    <button
+                        type="button"
+                        @click="printZReport"
+                        class="px-3 py-2 rounded-xl text-xs font-bold bg-[#231812] hover:bg-[#3D281F] text-[#F5EBE1] transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                        title="Cetak Laporan Resmi Tutup Kasir Shift (Z-Report) ke Printer Thermal"
+                    >
+                        <Printer class="w-3.5 h-3.5 text-[#F5EBE1]" />
+                        <span class="hidden sm:inline">Tutup Kasir</span>
+                    </button>
+                </div>
 
-                <!-- Profil Toko & Format Struk Button -->
-                <button
-                    type="button"
-                    @click="showStoreSettingsModal = true"
-                    class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
-                    title="Atur Nama Resto, Cabang, Alamat, Kontak, dan Format Struk"
-                >
-                    <Settings class="w-3.5 h-3.5 text-amber-700" />
-                    <span class="hidden lg:inline">Profil Resto</span>
-                </button>
+                <div class="h-6 w-px bg-[#E8DFD1] mx-0.5"></div>
 
-                <!-- Sound Toggle -->
-                <button
-                    type="button"
-                    @click="soundEnabled = !soundEnabled"
-                    class="p-2 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 transition-colors"
-                    :title="soundEnabled ? 'Notifikasi Suara Aktif' : 'Notifikasi Suara Senyap'"
-                >
-                    <Volume2 v-if="soundEnabled" class="w-4 h-4 text-amber-600" />
-                    <VolumeX v-else class="w-4 h-4 text-slate-400" />
-                </button>
+                <!-- Group 3: Sistem & Pengaturan -->
+                <div class="flex items-center gap-1.5">
+                    <!-- Printer Struk Button -->
+                    <button
+                        type="button"
+                        @click="showPrinterModal = true"
+                        class="px-2.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-[#FAF7F2] text-[#231812] border border-[#E8DFD1] transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                        title="Koneksi & Pengaturan Printer Struk Kasir"
+                    >
+                        <Printer class="w-3.5 h-3.5 text-[#7A6A60]" />
+                        <span class="hidden md:inline">Printer</span>
+                        <span
+                            class="w-2 h-2 rounded-full"
+                            :class="isPrinterConnected ? 'bg-[#15803D]' : 'bg-[#D3C5B4]'"
+                            :title="isPrinterConnected ? 'Printer Siap' : 'Printer Belum Konek'"
+                        ></span>
+                    </button>
 
-                <!-- Refresh Button -->
-                <button
-                    type="button"
-                    @click="fetchOrdersSilently"
-                    class="p-2 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 transition-colors"
-                    title="Refresh Data"
-                >
-                    <RotateCcw class="w-4 h-4" :class="{ 'animate-spin': isSyncing }" />
-                </button>
+                    <!-- Profil Toko & Format Struk Button -->
+                    <button
+                        type="button"
+                        @click="showStoreSettingsModal = true"
+                        class="p-2 rounded-xl bg-white hover:bg-[#FAF7F2] text-[#5C4A3E] border border-[#E8DFD1] transition-colors flex items-center cursor-pointer shadow-2xs"
+                        title="Atur Profil Resto, Kontak, dan Format Struk"
+                    >
+                        <Settings class="w-4 h-4" />
+                    </button>
+
+                    <!-- Sound Toggle -->
+                    <button
+                        type="button"
+                        @click="soundEnabled = !soundEnabled"
+                        class="p-2 rounded-xl border border-[#E8DFD1] bg-white text-[#5C4A3E] hover:bg-[#FAF7F2] transition-colors cursor-pointer shadow-2xs"
+                        :title="soundEnabled ? 'Notifikasi Suara Aktif' : 'Notifikasi Suara Senyap'"
+                    >
+                        <Volume2 v-if="soundEnabled" class="w-4 h-4 text-[#A8421E]" />
+                        <VolumeX v-else class="w-4 h-4 text-[#7A6A60]" />
+                    </button>
+
+                    <!-- Refresh Button -->
+                    <button
+                        type="button"
+                        @click="fetchOrdersSilently"
+                        class="p-2 rounded-xl border border-[#E8DFD1] bg-white text-[#5C4A3E] hover:bg-[#FAF7F2] transition-colors cursor-pointer shadow-2xs"
+                        title="Refresh Data"
+                    >
+                        <RotateCcw class="w-4 h-4" :class="{ 'animate-spin': isSyncing }" />
+                    </button>
+                </div>
 
                 <!-- Navigation Shortcuts to other screens -->
-                <div class="h-6 w-px bg-slate-200 mx-1 hidden sm:block"></div>
+                <div class="h-6 w-px bg-[#E8DFD1] mx-0.5 hidden sm:block"></div>
 
                 <div class="flex items-center gap-1.5">
                     <a
                         href="/kitchen"
                         target="_blank"
-                        class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-slate-800 text-amber-300 transition-colors flex items-center gap-1.5 shadow-2xs"
+                        class="px-2.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-[#FAF7F2] text-[#231812] border border-[#E8DFD1] transition-colors flex items-center gap-1.5 shadow-2xs"
                         title="Buka Layar Tablet Dapur Koki (KDS)"
                     >
-                        <Flame class="w-3.5 h-3.5 text-amber-400" />
+                        <Flame class="w-3.5 h-3.5 text-[#A8421E]" />
                         <span class="hidden xl:inline">Layar Dapur</span>
                     </a>
 
                     <a
                         href="/display"
                         target="_blank"
-                        class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-700 hover:bg-emerald-800 text-white transition-colors flex items-center gap-1.5 shadow-2xs"
+                        class="px-2.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-[#FAF7F2] text-[#231812] border border-[#E8DFD1] transition-colors flex items-center gap-1.5 shadow-2xs"
                         title="Buka Layar TV Antrean Pelanggan"
                     >
-                        <Tv class="w-3.5 h-3.5 text-emerald-200" />
+                        <Tv class="w-3.5 h-3.5 text-[#15803D]" />
                         <span class="hidden xl:inline">Layar TV</span>
                     </a>
 
                     <Link
                         href="/kiosk"
-                        class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors flex items-center gap-1.5"
+                        class="px-2.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-[#FAF7F2] text-[#231812] border border-[#E8DFD1] transition-colors flex items-center gap-1.5 shadow-2xs"
                         title="Buka Kiosk Pelanggan"
                     >
-                        <Store class="w-3.5 h-3.5 text-slate-600" />
+                        <Store class="w-3.5 h-3.5 text-[#7A6A60]" />
                         <span class="hidden xl:inline">Kiosk</span>
                     </Link>
                 </div>
@@ -727,20 +744,20 @@ async function clearAllOrders(scope = 'history') {
         <!-- Main Split Screen -->
         <div class="flex-1 min-h-0 grid grid-cols-12 overflow-hidden">
             <!-- ================= LEFT COLUMN: ORDER QUEUE (5 Columns) ================= -->
-            <aside class="col-span-12 md:col-span-5 lg:col-span-4 border-r border-slate-200 bg-white flex flex-col h-full min-h-0 overflow-hidden">
+            <aside class="col-span-12 md:col-span-5 lg:col-span-4 border-r border-[#E8DFD1] bg-white flex flex-col h-full min-h-0 overflow-hidden">
                 <!-- Tab Selector & Search -->
-                <div class="p-3 border-b border-slate-200 space-y-2 bg-slate-50/50 shrink-0">
-                    <div class="grid grid-cols-2 gap-1 p-1 bg-slate-200/70 rounded-lg text-xs font-semibold">
+                <div class="p-3 border-b border-[#E8DFD1] space-y-2.5 bg-[#FAF7F2]/50 shrink-0">
+                    <div class="grid grid-cols-2 gap-1 p-1 bg-[#EFE8DE] rounded-xl text-xs font-bold">
                         <button
                             type="button"
                             @click="activeTab = 'pending'"
-                            class="py-2 rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                            :class="activeTab === 'pending' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'"
+                            class="py-2 rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                            :class="activeTab === 'pending' ? 'bg-white text-[#231812] shadow-xs' : 'text-[#7A6A60] hover:text-[#231812]'"
                         >
                             <span>Menunggu</span>
                             <span
                                 v-if="pendingOrders.length > 0"
-                                class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-amber-500 text-white"
+                                class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-[#A8421E] text-white font-mono"
                             >
                                 {{ pendingOrders.length }}
                             </span>
@@ -748,23 +765,23 @@ async function clearAllOrders(scope = 'history') {
                         <button
                             type="button"
                             @click="activeTab = 'history'"
-                            class="py-2 rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                            :class="activeTab === 'history' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'"
+                            class="py-2 rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                            :class="activeTab === 'history' ? 'bg-white text-[#231812] shadow-xs' : 'text-[#7A6A60] hover:text-[#231812]'"
                         >
                             <span>Selesai Hari Ini</span>
-                            <span class="text-slate-400 text-[10px]">({{ recentPaidOrders.length }})</span>
+                            <span class="text-[#7A6A60] text-[10px] font-mono">({{ recentPaidOrders.length }})</span>
                         </button>
                     </div>
 
                     <!-- Search Input & Clear All Action -->
                     <div class="flex items-center gap-2">
                         <div class="relative flex-1">
-                            <Search class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                            <Search class="w-4 h-4 text-[#7A6A60] absolute left-3 top-1/2 -translate-y-1/2" />
                             <input
                                 v-model="searchQuery"
                                 type="text"
                                 placeholder="Cari No. Antrean / Pelanggan..."
-                                class="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
+                                class="w-full pl-9 pr-3 py-2 text-xs bg-white border border-[#E8DFD1] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A8421E]/20 focus:border-[#A8421E] text-[#231812]"
                             />
                         </div>
 
@@ -773,7 +790,7 @@ async function clearAllOrders(scope = 'history') {
                             v-if="activeTab === 'history' && recentPaidOrders.length > 0"
                             type="button"
                             @click="clearAllOrders('history')"
-                            class="px-2.5 py-2 rounded-lg text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs"
+                            class="px-2.5 py-2 rounded-xl text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs"
                             title="Hapus seluruh riwayat pesanan hari ini"
                         >
                             <Trash2 class="w-3.5 h-3.5" />
@@ -785,7 +802,7 @@ async function clearAllOrders(scope = 'history') {
                             v-else-if="activeTab === 'pending' && pendingOrders.length > 0"
                             type="button"
                             @click="clearAllOrders('pending')"
-                            class="px-2.5 py-2 rounded-lg text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs"
+                            class="px-2.5 py-2 rounded-xl text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs"
                             title="Batalkan & hapus semua antrean pesanan"
                         >
                             <Trash2 class="w-3.5 h-3.5" />
@@ -795,9 +812,9 @@ async function clearAllOrders(scope = 'history') {
                 </div>
 
                 <!-- Orders Scroll List -->
-                <div class="flex-1 min-h-0 overflow-y-auto overscroll-contain divide-y divide-slate-100 p-2 space-y-1.5">
-                    <div v-if="displayedOrders.length === 0" class="py-16 text-center text-slate-400">
-                        <Layers class="w-10 h-10 mx-auto mb-2 stroke-[1.5] text-slate-300" />
+                <div class="flex-1 min-h-0 overflow-y-auto overscroll-contain divide-y divide-[#E8DFD1]/50 p-2.5 space-y-2">
+                    <div v-if="displayedOrders.length === 0" class="py-16 text-center text-[#7A6A60]">
+                        <Layers class="w-10 h-10 mx-auto mb-2 stroke-[1.5] text-[#D3C5B4]" />
                         <p class="text-xs font-medium">Tidak ada pesanan {{ activeTab === 'pending' ? 'yang menunggu pembayaran' : 'yang cocok' }}</p>
                     </div>
 
@@ -805,27 +822,27 @@ async function clearAllOrders(scope = 'history') {
                         v-for="order in displayedOrders"
                         :key="order.id"
                         @click="selectOrder(order)"
-                        class="p-3 rounded-xl border transition-all cursor-pointer relative"
+                        class="p-3.5 rounded-2xl border transition-all cursor-pointer relative"
                         :class="[
                             selectedOrderId === order.id
-                                ? 'bg-amber-50/40 border-amber-500 shadow-xs ring-1 ring-amber-500/20'
-                                : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/60'
+                                ? 'bg-[#FDF8F5] border-[#A8421E] shadow-xs ring-2 ring-[#A8421E]/10'
+                                : 'bg-white border-[#E8DFD1] hover:border-[#D3C5B4] hover:bg-[#FAF7F2]/50'
                         ]"
                     >
                         <!-- Top line: Queue Number & Time -->
                         <div class="flex items-center justify-between">
-                            <span class="font-mono font-black text-base text-slate-900">
+                            <span class="font-mono font-bold text-base text-[#231812]">
                                 {{ order.order_number }}
                             </span>
                             <div class="flex items-center gap-1.5">
-                                <span class="text-[11px] font-medium text-slate-500 flex items-center gap-1">
-                                    <Clock class="w-3 h-3 text-slate-400" />
+                                <span class="text-[11px] font-medium text-[#7A6A60] flex items-center gap-1">
+                                    <Clock class="w-3 h-3 text-[#7A6A60]" />
                                     {{ formatRelativeTime(order.created_at) }}
                                 </span>
                                 <button
                                     type="button"
                                     @click.stop="deleteOrder(order)"
-                                    class="p-1 rounded text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                                    class="p-1 rounded text-[#7A6A60] hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                                     title="Hapus pesanan ini dari riwayat"
                                 >
                                     <Trash2 class="w-3.5 h-3.5" />
@@ -835,33 +852,33 @@ async function clearAllOrders(scope = 'history') {
 
                         <!-- Customer & Table Badge -->
                         <div class="mt-1 flex items-center justify-between">
-                            <span class="text-xs font-bold text-slate-800 truncate">
+                            <span class="text-xs font-bold text-[#231812] truncate">
                                 {{ order.customer_name }}
                             </span>
                             <span
-                                class="px-2 py-0.5 rounded text-[10px] font-bold tracking-wide"
-                                :class="order.order_type === 'dine_in' ? 'bg-slate-100 text-slate-700' : 'bg-blue-50 text-blue-700'"
+                                class="px-2 py-0.5 rounded text-[10px] font-bold tracking-wide border"
+                                :class="order.order_type === 'dine_in' ? 'bg-[#FAF7F2] text-[#A8421E] border-[#E8DFD1]' : 'bg-[#FAF7F2] text-[#5C4A3E] border-[#E8DFD1]'"
                             >
                                 {{ order.order_type === 'dine_in' ? `Meja ${order.table_number || '-'}` : 'Bawa Pulang' }}
                             </span>
                         </div>
 
                         <!-- Items Snippet -->
-                        <div class="mt-2 text-[11px] text-slate-500 line-clamp-1">
+                        <div class="mt-2 text-[11px] text-[#7A6A60] line-clamp-1">
                             {{ order.items.map((i) => `${i.quantity}x ${i.product?.name || 'Menu'}`).join(', ') }}
                         </div>
 
                         <!-- Bottom: Total & Status Indicator -->
-                        <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-                            <span class="font-bold text-slate-900">
+                        <div class="mt-2.5 pt-2 border-t border-[#E8DFD1]/60 flex items-center justify-between text-xs">
+                            <span class="font-bold text-[#231812] font-mono">
                                 {{ formatRupiah(order.total_amount) }}
                             </span>
 
                             <span
-                                class="inline-flex items-center gap-1 font-semibold text-[10px] uppercase"
-                                :class="order.status === 'paid' ? 'text-emerald-700' : 'text-amber-700'"
+                                class="inline-flex items-center gap-1 font-bold text-[10px] uppercase"
+                                :class="order.status === 'paid' ? 'text-[#15803D]' : 'text-[#A8421E]'"
                             >
-                                <span class="w-1.5 h-1.5 rounded-full" :class="order.status === 'paid' ? 'bg-emerald-500' : 'bg-amber-500'"></span>
+                                <span class="w-1.5 h-1.5 rounded-full" :class="order.status === 'paid' ? 'bg-[#15803D]' : 'bg-[#A8421E]'"></span>
                                 {{ order.status === 'paid' ? 'LUNAS' : 'MENUNGGU' }}
                             </span>
                         </div>
@@ -870,20 +887,20 @@ async function clearAllOrders(scope = 'history') {
             </aside>
 
             <!-- ================= RIGHT COLUMN: ORDER DETAILS & PAYMENT (7 or 8 Columns) ================= -->
-            <main class="col-span-12 md:col-span-7 lg:col-span-8 flex flex-col h-full min-h-0 bg-slate-50 overflow-hidden">
+            <main class="col-span-12 md:col-span-7 lg:col-span-8 flex flex-col h-full min-h-0 bg-[#FAF7F2] overflow-hidden">
                 <div v-if="selectedOrder" class="flex-1 min-h-0 flex flex-col lg:flex-row overflow-hidden">
                     <!-- Column A: Order Itemized Details (Left side of right pane) -->
-                    <div class="flex-1 min-h-0 flex flex-col border-b lg:border-b-0 lg:border-r border-slate-200 bg-white overflow-hidden">
+                    <div class="flex-1 min-h-0 flex flex-col border-b lg:border-b-0 lg:border-r border-[#E8DFD1] bg-white overflow-hidden">
                         <!-- Order Header -->
-                        <div class="p-3 sm:p-4 border-b border-slate-200 bg-slate-50/50 flex items-center justify-between shrink-0">
+                        <div class="p-4 border-b border-[#E8DFD1] bg-[#FAF7F2]/50 flex items-center justify-between shrink-0">
                             <div>
                                 <div class="flex items-center gap-2">
-                                    <h2 class="font-mono text-xl font-black text-slate-900">
+                                    <h2 class="font-mono text-xl font-bold text-[#231812]">
                                         {{ selectedOrder.order_number }}
                                     </h2>
                                     <span
                                         class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider"
-                                        :class="selectedOrder.status === 'paid' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'"
+                                        :class="selectedOrder.status === 'paid' ? 'bg-[#DCFCE7] text-[#15803D]' : 'bg-[#FEF3C7] text-[#92400E]'"
                                     >
                                         {{ selectedOrder.status === 'paid' ? 'Lunas' : 'Belum Bayar' }}
                                     </span>
@@ -891,15 +908,15 @@ async function clearAllOrders(scope = 'history') {
                                     <!-- Kitchen Status -->
                                     <span
                                         v-if="selectedOrder.status === 'paid' && selectedOrder.kitchen_status"
-                                        class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1"
+                                        class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 border"
                                         :class="[
                                             selectedOrder.kitchen_status === 'cooking'
-                                                ? 'bg-blue-100 text-blue-800 ring-1 ring-blue-300'
+                                                ? 'bg-blue-50 text-blue-800 border-blue-200'
                                                 : (selectedOrder.kitchen_status === 'ready'
-                                                    ? 'bg-emerald-100 text-emerald-800 ring-1 ring-emerald-300'
+                                                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                                                     : (selectedOrder.kitchen_status === 'completed'
-                                                        ? 'bg-slate-100 text-slate-600'
-                                                        : 'bg-amber-100 text-amber-800'))
+                                                        ? 'bg-slate-50 text-slate-600 border-slate-200'
+                                                        : 'bg-amber-50 text-amber-800 border-amber-200'))
                                         ]"
                                     >
                                         <Flame v-if="selectedOrder.kitchen_status === 'cooking'" class="w-3 h-3 text-blue-600" />
@@ -913,9 +930,9 @@ async function clearAllOrders(scope = 'history') {
                                         </span>
                                     </span>
                                 </div>
-                                <div class="text-xs text-slate-500 mt-0.5">
+                                <div class="text-xs text-[#7A6A60] mt-1 font-medium">
                                     {{ selectedOrder.customer_name }} •
-                                    {{ selectedOrder.order_type === 'dine_in' ? `Meja ${selectedOrder.table_number || '-'}` : 'Bawa Pulang (Takeaway)' }} •
+                                    {{ selectedOrder.order_type === 'dine_in' ? `Meja ${selectedOrder.table_number || '-'}` : 'Bawa Pulang' }} •
                                     {{ formatDateTime(selectedOrder.created_at) }}
                                 </div>
                             </div>
@@ -924,10 +941,10 @@ async function clearAllOrders(scope = 'history') {
                                 <button
                                     type="button"
                                     @click="printKitchenTicket(selectedOrder)"
-                                    class="text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-300 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                                    class="text-xs font-bold text-[#A8421E] bg-[#FAF7F2] hover:bg-[#EFE8DE] border border-[#E8DFD1] px-3 py-1.5 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
                                     title="Cetak Tiket Pesanan untuk Dapur / Koki"
                                 >
-                                    <UtensilsCrossed class="w-3.5 h-3.5 text-amber-700" />
+                                    <UtensilsCrossed class="w-3.5 h-3.5 text-[#A8421E]" />
                                     <span>Tiket Dapur</span>
                                 </button>
 
@@ -935,7 +952,7 @@ async function clearAllOrders(scope = 'history') {
                                     v-if="selectedOrder.status === 'pending_payment'"
                                     type="button"
                                     @click="cancelCurrentOrder"
-                                    class="text-xs font-semibold text-rose-600 hover:text-rose-700 px-3 py-1.5 rounded-lg border border-rose-200 hover:bg-rose-50 transition-colors cursor-pointer"
+                                    class="text-xs font-semibold text-rose-600 hover:text-rose-700 px-3 py-1.5 rounded-xl border border-rose-200 hover:bg-rose-50 transition-colors cursor-pointer"
                                 >
                                     Batalkan Pesanan
                                 </button>
@@ -943,17 +960,17 @@ async function clearAllOrders(scope = 'history') {
                                 <button
                                     type="button"
                                     @click="deleteOrder(selectedOrder)"
-                                    class="text-xs font-semibold text-rose-600 hover:text-rose-700 px-3 py-1.5 rounded-lg border border-rose-200 hover:bg-rose-50 transition-colors flex items-center gap-1.5 cursor-pointer"
+                                    class="text-xs font-semibold text-rose-600 hover:text-rose-700 px-3 py-1.5 rounded-xl border border-rose-200 hover:bg-rose-50 transition-colors flex items-center gap-1.5 cursor-pointer"
                                     title="Hapus pesanan ini secara permanen dari riwayat"
                                 >
                                     <Trash2 class="w-3.5 h-3.5" />
-                                    <span>Hapus Pesanan</span>
+                                    <span>Hapus</span>
                                 </button>
                             </div>
                         </div>
 
                         <!-- Itemized List -->
-                        <div class="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-3 divide-y divide-slate-100">
+                        <div class="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-3 divide-y divide-[#E8DFD1]/50">
                             <div
                                 v-for="item in selectedOrder.items"
                                 :key="item.id"
@@ -961,61 +978,61 @@ async function clearAllOrders(scope = 'history') {
                             >
                                 <div class="flex items-start justify-between">
                                     <div>
-                                        <div class="font-bold text-sm text-slate-900">
+                                        <div class="font-bold text-sm text-[#231812]">
                                             {{ item.product?.name || 'Menu Soto' }}
                                         </div>
-                                        <div class="text-xs text-slate-500 mt-0.5">
+                                        <div class="text-xs text-[#7A6A60] mt-0.5 font-mono">
                                             {{ item.quantity }} x {{ formatRupiah(item.unit_price) }}
                                         </div>
                                     </div>
-                                    <div class="font-bold text-sm text-slate-900">
+                                    <div class="font-bold text-sm text-[#231812] font-mono">
                                         {{ formatRupiah(item.subtotal) }}
                                     </div>
                                 </div>
 
                                 <!-- Note badge if present -->
-                                <div v-if="item.notes" class="mt-1.5 inline-flex items-center gap-1.5 bg-amber-50 text-amber-900 border border-amber-200/60 rounded px-2 py-0.5 text-xs font-medium">
-                                    <FileText class="w-3 h-3 text-amber-600 shrink-0" />
+                                <div v-if="item.notes" class="mt-1.5 inline-flex items-center gap-1.5 bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A] rounded-md px-2.5 py-1 text-xs font-bold">
+                                    <FileText class="w-3 h-3 text-[#B45309] shrink-0" />
                                     <span>Catatan: {{ item.notes }}</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Bill Breakdown Summary -->
-                        <div class="p-4 border-t border-slate-200 bg-slate-50/70 text-xs space-y-1.5">
-                            <div class="flex justify-between text-slate-600">
+                        <div class="p-4 border-t border-[#E8DFD1] bg-[#FAF7F2]/60 text-xs space-y-1.5">
+                            <div class="flex justify-between text-[#7A6A60]">
                                 <span>Subtotal</span>
-                                <span class="font-semibold text-slate-900">{{ formatRupiah(selectedOrder.subtotal) }}</span>
+                                <span class="font-bold text-[#231812] font-mono">{{ formatRupiah(selectedOrder.subtotal) }}</span>
                             </div>
-                            <div class="flex justify-between text-slate-600">
+                            <div class="flex justify-between text-[#7A6A60]">
                                 <span>Pajak Resto (0%)</span>
-                                <span class="font-semibold text-slate-900">{{ formatRupiah(selectedOrder.tax || 0) }}</span>
+                                <span class="font-bold text-[#231812] font-mono">{{ formatRupiah(selectedOrder.tax || 0) }}</span>
                             </div>
-                            <div class="flex justify-between text-base font-bold text-slate-900 pt-2 border-t border-slate-200">
-                                <span>Total Tagihan</span>
-                                <span class="text-amber-600 text-lg">{{ formatRupiah(selectedOrder.total_amount) }}</span>
+                            <div class="flex justify-between text-base font-bold text-[#231812] pt-2 border-t border-[#E8DFD1]">
+                                <span class="font-serif">Total Tagihan</span>
+                                <span class="text-[#A8421E] text-lg font-mono">{{ formatRupiah(selectedOrder.total_amount) }}</span>
                             </div>
 
                             <!-- If already paid, show details & reprint button -->
-                            <div v-if="selectedOrder.status === 'paid'" class="mt-3 pt-3 border-t border-slate-200 text-xs space-y-1">
-                                <div class="flex justify-between text-slate-600">
+                            <div v-if="selectedOrder.status === 'paid'" class="mt-3 pt-3 border-t border-[#E8DFD1] text-xs space-y-1">
+                                <div class="flex justify-between text-[#7A6A60]">
                                     <span>Metode:</span>
-                                    <span class="font-bold uppercase text-slate-900">{{ selectedOrder.payment_method }}</span>
+                                    <span class="font-bold uppercase text-[#231812]">{{ selectedOrder.payment_method }}</span>
                                 </div>
-                                <div v-if="selectedOrder.payment_method === 'cash'" class="flex justify-between text-slate-600">
+                                <div v-if="selectedOrder.payment_method === 'cash'" class="flex justify-between text-[#7A6A60]">
                                     <span>Uang Diterima:</span>
-                                    <span class="font-bold text-slate-900">{{ formatRupiah(selectedOrder.amount_paid) }}</span>
+                                    <span class="font-bold text-[#231812] font-mono">{{ formatRupiah(selectedOrder.amount_paid) }}</span>
                                 </div>
-                                <div v-if="selectedOrder.payment_method === 'cash'" class="flex justify-between text-slate-600">
+                                <div v-if="selectedOrder.payment_method === 'cash'" class="flex justify-between text-[#7A6A60]">
                                     <span>Kembalian:</span>
-                                    <span class="font-bold text-emerald-700">{{ formatRupiah(selectedOrder.change_amount || 0) }}</span>
+                                    <span class="font-bold text-[#15803D] font-mono">{{ formatRupiah(selectedOrder.change_amount || 0) }}</span>
                                 </div>
 
                                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
                                     <button
                                         type="button"
                                         @click="callOrderToTv(selectedOrder)"
-                                        class="py-2.5 px-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+                                        class="py-2.5 px-2 bg-[#15803D] hover:bg-[#166534] text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
                                         title="Panggil nomor antrean ini ke Layar TV Pelanggan dengan suara bel & ucapan"
                                     >
                                         <Bell class="w-4 h-4 text-emerald-100" />
@@ -1025,7 +1042,7 @@ async function clearAllOrders(scope = 'history') {
                                     <button
                                         type="button"
                                         @click="printOrderReceipt(selectedOrder)"
-                                        class="py-2.5 px-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                                        class="py-2.5 px-2 bg-[#231812] hover:bg-[#3D281F] text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                                         title="Cetak Ulang Struk Pembayaran Kasir"
                                     >
                                         <Printer class="w-4 h-4" />
@@ -1035,17 +1052,17 @@ async function clearAllOrders(scope = 'history') {
                                     <button
                                         type="button"
                                         @click="printKitchenTicket(selectedOrder)"
-                                        class="py-2.5 px-2 bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 rounded-lg font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                                        title="Cetak Ulang Tiket Dapur / Koki (Tanpa Harga)"
+                                        class="py-2.5 px-2 bg-white hover:bg-[#FAF7F2] text-[#A8421E] border border-[#E8DFD1] rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                                        title="Cetak Ulang Tiket Dapur / Koki"
                                     >
-                                        <UtensilsCrossed class="w-4 h-4 text-amber-700" />
+                                        <UtensilsCrossed class="w-4 h-4 text-[#A8421E]" />
                                         <span>Tiket Dapur</span>
                                     </button>
 
                                     <button
                                         type="button"
                                         @click="deleteOrder(selectedOrder)"
-                                        class="py-2.5 px-2 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-lg font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                                        class="py-2.5 px-2 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                                         title="Hapus riwayat pesanan ini"
                                     >
                                         <Trash2 class="w-4 h-4 text-rose-600" />
@@ -1059,74 +1076,74 @@ async function clearAllOrders(scope = 'history') {
                     <!-- Column B: Payment Calculator Panel (Right side of right pane, active for pending orders) -->
                     <div
                         v-if="selectedOrder.status === 'pending_payment'"
-                        class="w-full lg:w-[360px] xl:w-[380px] bg-white border-l border-slate-200 flex flex-col h-full overflow-hidden shrink-0"
+                        class="w-full lg:w-[360px] xl:w-[380px] bg-white border-l border-[#E8DFD1] flex flex-col h-full overflow-hidden shrink-0"
                     >
                         <!-- Scrollable Calculator Body -->
-                        <div class="flex-1 overflow-y-auto overscroll-contain p-3 sm:p-3.5 space-y-2.5">
-                            <div class="pb-2 border-b border-slate-200">
-                                <h3 class="font-bold text-sm text-slate-900">Pembayaran Tagihan</h3>
-                                <p class="text-xs text-slate-500">Pilih metode pembayaran dan hitung kembalian</p>
+                        <div class="flex-1 overflow-y-auto overscroll-contain p-4 space-y-3">
+                            <div class="pb-2 border-b border-[#E8DFD1]">
+                                <h3 class="font-serif font-bold text-base text-[#231812]">Pembayaran Tagihan</h3>
+                                <p class="text-xs text-[#7A6A60]">Pilih metode pembayaran dan hitung uang kembalian</p>
                             </div>
 
                             <!-- Error alert -->
-                            <div v-if="paymentErrorMessage" class="p-2.5 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-lg flex items-center gap-2">
+                            <div v-if="paymentErrorMessage" class="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-xl flex items-center gap-2 font-medium">
                                 <AlertCircle class="w-4 h-4 shrink-0" />
                                 <span>{{ paymentErrorMessage }}</span>
                             </div>
 
                             <!-- Payment Method Selector (Cash / QRIS) -->
-                            <div class="grid grid-cols-2 gap-1.5">
+                            <div class="grid grid-cols-2 gap-2">
                                 <button
                                     type="button"
                                     @click="paymentMethod = 'cash'"
-                                    class="py-2 px-3 rounded-lg border text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                                    :class="paymentMethod === 'cash' ? 'border-amber-600 bg-amber-50 text-amber-900 ring-1 ring-amber-600 shadow-xs' : 'border-slate-200 text-slate-600 hover:bg-slate-50'"
+                                    class="py-2.5 px-3 rounded-xl border-2 text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
+                                    :class="paymentMethod === 'cash' ? 'border-[#A8421E] bg-[#FDF8F5] text-[#A8421E] shadow-2xs' : 'border-[#E8DFD1] text-[#7A6A60] hover:bg-[#FAF7F2]'"
                                 >
-                                    <Banknote class="w-4 h-4 text-amber-600" />
+                                    <Banknote class="w-4 h-4 text-[#A8421E]" />
                                     <span>Tunai (Cash)</span>
                                 </button>
                                 <button
                                     type="button"
                                     @click="paymentMethod = 'qris'"
-                                    class="py-2 px-3 rounded-lg border text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                                    :class="paymentMethod === 'qris' ? 'border-amber-600 bg-amber-50 text-amber-900 ring-1 ring-amber-600 shadow-xs' : 'border-slate-200 text-slate-600 hover:bg-slate-50'"
+                                    class="py-2.5 px-3 rounded-xl border-2 text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
+                                    :class="paymentMethod === 'qris' ? 'border-[#A8421E] bg-[#FDF8F5] text-[#A8421E] shadow-2xs' : 'border-[#E8DFD1] text-[#7A6A60] hover:bg-[#FAF7F2]'"
                                 >
-                                    <QrCode class="w-4 h-4 text-amber-600" />
-                                    <span>QRIS / Non-Tunai</span>
+                                    <QrCode class="w-4 h-4 text-[#A8421E]" />
+                                    <span>QRIS Resto</span>
                                 </button>
                             </div>
 
                             <!-- CASH PAYMENT SECTION -->
-                            <div v-if="paymentMethod === 'cash'" class="space-y-2">
+                            <div v-if="paymentMethod === 'cash'" class="space-y-3">
                                 <!-- Quick Nominal Buttons -->
                                 <div>
-                                    <span class="text-[11px] font-semibold text-slate-500 block mb-1">Pilihan Cepat Nominal</span>
+                                    <span class="text-[11px] font-bold text-[#7A6A60] block mb-1.5 uppercase tracking-wider">Pilihan Cepat Nominal</span>
                                     <div class="grid grid-cols-2 gap-1.5">
                                         <button
                                             type="button"
                                             @click="setAmountPaid(selectedOrder.total_amount)"
-                                            class="py-1.5 px-2 bg-slate-100 hover:bg-amber-100 hover:text-amber-900 rounded-md text-xs font-bold text-slate-800 transition-colors cursor-pointer"
+                                            class="py-2 px-2 bg-[#FAF7F2] hover:bg-[#EFE8DE] border border-[#E8DFD1] rounded-xl text-xs font-bold text-[#231812] font-mono transition-colors cursor-pointer"
                                         >
-                                            Uang Pas ({{ formatRupiah(selectedOrder.total_amount) }})
+                                            Uang Pas
                                         </button>
                                         <button
                                             type="button"
                                             @click="setAmountPaid(50000)"
-                                            class="py-1.5 px-2 bg-slate-100 hover:bg-amber-100 hover:text-amber-900 rounded-md text-xs font-bold text-slate-800 transition-colors cursor-pointer"
+                                            class="py-2 px-2 bg-[#FAF7F2] hover:bg-[#EFE8DE] border border-[#E8DFD1] rounded-xl text-xs font-bold text-[#231812] font-mono transition-colors cursor-pointer"
                                         >
                                             Rp 50.000
                                         </button>
                                         <button
                                             type="button"
                                             @click="setAmountPaid(100000)"
-                                            class="py-1.5 px-2 bg-slate-100 hover:bg-amber-100 hover:text-amber-900 rounded-md text-xs font-bold text-slate-800 transition-colors cursor-pointer"
+                                            class="py-2 px-2 bg-[#FAF7F2] hover:bg-[#EFE8DE] border border-[#E8DFD1] rounded-xl text-xs font-bold text-[#231812] font-mono transition-colors cursor-pointer"
                                         >
                                             Rp 100.000
                                         </button>
                                         <button
                                             type="button"
                                             @click="setAmountPaid(200000)"
-                                            class="py-1.5 px-2 bg-slate-100 hover:bg-amber-100 hover:text-amber-900 rounded-md text-xs font-bold text-slate-800 transition-colors cursor-pointer"
+                                            class="py-2 px-2 bg-[#FAF7F2] hover:bg-[#EFE8DE] border border-[#E8DFD1] rounded-xl text-xs font-bold text-[#231812] font-mono transition-colors cursor-pointer"
                                         >
                                             Rp 200.000
                                         </button>
@@ -1135,42 +1152,42 @@ async function clearAllOrders(scope = 'history') {
 
                                 <!-- Amount Tender Display -->
                                 <div>
-                                    <div class="flex justify-between items-baseline mb-0.5">
-                                        <span class="text-[11px] font-semibold text-slate-500">Uang Diterima</span>
-                                        <span class="text-xs font-mono font-bold text-slate-900">{{ formatRupiah(amountPaid) }}</span>
+                                    <div class="flex justify-between items-baseline mb-1">
+                                        <span class="text-[11px] font-bold uppercase tracking-wider text-[#7A6A60]">Uang Diterima</span>
+                                        <span class="text-xs font-mono font-bold text-[#231812]">{{ formatRupiah(amountPaid) }}</span>
                                     </div>
                                     <div class="relative">
                                         <input
                                             type="text"
                                             :value="amountPaid ? Number(amountPaid).toLocaleString('id-ID') : '0'"
                                             readonly
-                                            class="w-full py-1.5 px-3 text-base font-mono font-bold text-right bg-slate-50 border border-slate-200 rounded-lg focus:outline-none"
+                                            class="w-full py-2 px-3 text-lg font-mono font-bold text-right bg-[#FAF7F2] border border-[#E8DFD1] rounded-xl text-[#231812] focus:outline-none"
                                         />
                                     </div>
                                 </div>
 
                                 <!-- Keypad Numbers (3x4) -->
-                                <div class="grid grid-cols-3 gap-1">
+                                <div class="grid grid-cols-3 gap-1.5">
                                     <button
                                         v-for="key in ['1','2','3','4','5','6','7','8','9','000','0','BACK']"
                                         :key="key"
                                         type="button"
                                         @click="handleKeypad(key)"
-                                        class="h-8.5 rounded-md border border-slate-200 bg-white hover:bg-slate-100 active:bg-slate-200 text-xs font-bold font-mono text-slate-800 transition-colors cursor-pointer"
+                                        class="h-9 rounded-xl border border-[#E8DFD1] bg-[#FAF7F2] hover:bg-white active:bg-[#EFE8DE] text-xs font-bold font-mono text-[#231812] transition-colors cursor-pointer shadow-2xs"
                                     >
                                         {{ key === 'BACK' ? '⌫' : key }}
                                     </button>
                                 </div>
 
                                 <!-- Change (Kembalian) Calculation Display -->
-                                <div class="p-2 rounded-lg border text-xs" :class="isCashEnough ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'">
+                                <div class="p-3 rounded-xl border text-xs" :class="isCashEnough ? 'bg-[#F0FDF4] border-[#BBF7D0]' : 'bg-[#FEF2F2] border-[#FECACA]'">
                                     <div class="flex justify-between items-center">
-                                        <span class="font-semibold text-slate-700">
+                                        <span class="font-bold" :class="isCashEnough ? 'text-[#15803D]' : 'text-[#B91C1C]'">
                                             {{ isCashEnough ? 'Kembalian:' : 'Uang Kurang:' }}
                                         </span>
                                         <span
-                                            class="text-sm font-mono font-black"
-                                            :class="isCashEnough ? 'text-emerald-700' : 'text-rose-600'"
+                                            class="text-base font-mono font-black"
+                                            :class="isCashEnough ? 'text-[#15803D]' : 'text-[#B91C1C]'"
                                         >
                                             {{ formatRupiah(Math.abs(changeAmount)) }}
                                         </span>
@@ -1179,13 +1196,13 @@ async function clearAllOrders(scope = 'history') {
                             </div>
 
                             <!-- QRIS PAYMENT SECTION -->
-                            <div v-else class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-center space-y-2">
-                                <span class="text-xs font-bold text-slate-700 uppercase tracking-wide block">
+                            <div v-else class="p-4 bg-[#FAF7F2]/60 rounded-2xl border border-[#E8DFD1] text-center space-y-2.5">
+                                <span class="text-xs font-bold text-[#231812] uppercase tracking-wide block">
                                     SCAN QRIS UNTUK PEMBAYARAN
                                 </span>
 
                                 <!-- Dynamic QR Code Mockup -->
-                                <div class="w-36 h-36 mx-auto bg-white p-2 rounded-lg border border-slate-300 shadow-xs flex flex-col items-center justify-center">
+                                <div class="w-36 h-36 mx-auto bg-white p-2 rounded-xl border border-[#E8DFD1] shadow-2xs flex flex-col items-center justify-center">
                                     <img
                                         :src="`https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=TOKO_SOTO_${selectedOrder.order_number}_${selectedOrder.total_amount}`"
                                         alt="QRIS Barcode"
@@ -1194,22 +1211,22 @@ async function clearAllOrders(scope = 'history') {
                                     />
                                 </div>
 
-                                <div class="text-xs text-slate-600">
-                                    Total: <strong class="text-slate-900 font-mono text-sm">{{ formatRupiah(selectedOrder.total_amount) }}</strong>
+                                <div class="text-xs text-[#7A6A60]">
+                                    Total: <strong class="text-[#231812] font-mono text-sm">{{ formatRupiah(selectedOrder.total_amount) }}</strong>
                                 </div>
-                                <div class="text-[10px] text-slate-500">
-                                    Mendukung GoPay, OVO, Dana, BCA, Mandiri, dll.
+                                <div class="text-[11px] text-[#7A6A60]">
+                                    Mendukung GoPay, OVO, Dana, ShopeePay, BCA, Mandiri
                                 </div>
                             </div>
                         </div>
 
                         <!-- ALWAYS VISIBLE FIXED BOTTOM BUTTON (SHRINK-0) -->
-                        <div class="p-3 border-t border-slate-200 bg-white shrink-0 shadow-xs">
+                        <div class="p-3.5 border-t border-[#E8DFD1] bg-white shrink-0 shadow-xs">
                             <button
                                 type="button"
                                 @click="confirmPayment"
                                 :disabled="isProcessingPayment || (paymentMethod === 'cash' && !isCashEnough)"
-                                class="w-full h-12 rounded-xl bg-amber-600 hover:bg-amber-700 active:bg-amber-800 disabled:opacity-40 disabled:pointer-events-none text-white font-bold text-sm flex items-center justify-center gap-2 transition-colors duration-150 shadow-xs cursor-pointer"
+                                class="w-full h-12 rounded-xl bg-[#15803D] hover:bg-[#166534] active:scale-[0.99] disabled:opacity-40 disabled:pointer-events-none text-white font-bold text-sm flex items-center justify-center gap-2 transition-all duration-150 shadow-xs cursor-pointer"
                             >
                                 <Printer class="w-4 h-4" />
                                 <span>{{ isProcessingPayment ? 'Memproses...' : 'Konfirmasi Bayar & Cetak Struk' }}</span>
@@ -1219,12 +1236,12 @@ async function clearAllOrders(scope = 'history') {
                 </div>
 
                 <!-- Empty State if no order selected -->
-                <div v-else class="flex-1 flex items-center justify-center p-8 text-center text-slate-400">
+                <div v-else class="flex-1 flex items-center justify-center p-8 text-center text-[#7A6A60]">
                     <div>
-                        <Store class="w-12 h-12 mx-auto mb-3 text-slate-300 stroke-[1.5]" />
-                        <h3 class="text-base font-bold text-slate-700">Pilih Pesanan di Antrean</h3>
-                        <p class="text-xs text-slate-500 mt-1 max-w-sm">
-                            Pilih salah satu pesanan dari daftar antrean sebelah kiri untuk melihat rincian menu dan melakukan pembayaran.
+                        <Store class="w-12 h-12 mx-auto mb-3 text-[#D3C5B4] stroke-[1.5]" />
+                        <h3 class="font-serif text-lg font-bold text-[#231812]">Pilih Pesanan di Antrean</h3>
+                        <p class="text-xs text-[#7A6A60] mt-1 max-w-sm">
+                            Pilih salah satu pesanan dari daftar antrean sebelah kiri untuk melihat rincian menu dan melakukan pembayaran kasir.
                         </p>
                     </div>
                 </div>
