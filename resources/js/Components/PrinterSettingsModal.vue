@@ -214,7 +214,7 @@ async function handleTestPrint() {
                 document.head.appendChild(style);
             }
             const width = settings.paperSize === '80mm' ? '80mm' : '58mm';
-            style.innerHTML = `@page { size: ${width} auto; margin: 0mm; }`;
+            style.innerHTML = `@page { size: ${width} 120mm; margin: 0mm; }`;
 
             showSystemTestPreview.value = true;
             setTimeout(() => {
@@ -237,7 +237,7 @@ async function handleTestPrint() {
     <!-- Hidden Print Template for System Test Print -->
     <div
         v-if="showSystemTestPreview"
-        class="thermal-receipt-print-area hidden print:block bg-white text-black font-mono leading-tight"
+        class="thermal-receipt-print-area bg-white text-black font-mono leading-tight"
     >
         <div
             :class="settings.paperSize === '80mm' ? 'w-[80mm] max-w-[80mm] text-[12px] px-2.5' : 'w-[58mm] max-w-[58mm] text-[10.5px] px-1.5'"

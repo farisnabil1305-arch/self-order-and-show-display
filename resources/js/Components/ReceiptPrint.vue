@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import { formatRupiah, formatDateTime } from '@/Utils/formatters';
 
 const props = defineProps({
@@ -20,7 +20,7 @@ const props = defineProps({
 const isDineIn = computed(() => props.order?.order_type === 'dine_in');
 const store = computed(() => props.storeSettings || {});
 
-// Dynamic @page size injection for thermal printer roll
+const receiptContainerRef = ref(null);
 const pageStyleId = 'dynamic-thermal-page-style';
 
 function applyPrintStyle() {
@@ -31,7 +31,19 @@ function applyPrintStyle() {
         document.head.appendChild(style);
     }
     const width = props.paperSize === '80mm' ? '80mm' : '58mm';
-    style.innerHTML = `@page { size: ${width} auto; margin: 0mm; }`;
+    
+    // Calculate exact content height in mm (96px = 1 inch = 25.4mm)
+    let heightMm = 155; // sensible baseline fallback for customer receipt
+    if (receiptContainerRef.value) {
+        const heightPx = receiptContainerRef.value.scrollHeight || receiptContainerRef.value.offsetHeight;
+        if (heightPx > 0) {
+            heightMm = Math.ceil((heightPx * 25.4) / 96) + 4;
+        }
+    } else if (props.order?.items) {
+        heightMm = Math.max(130, 95 + (props.order.items.length * 16));
+    }
+
+    style.innerHTML = `@page { size: ${width} ${heightMm}mm; margin: 0mm; }`;
 }
 
 function removePrintStyle() {
@@ -42,8 +54,20 @@ function removePrintStyle() {
 }
 
 onMounted(() => {
-    applyPrintStyle();
+    nextTick(() => {
+        applyPrintStyle();
+    });
 });
+
+watch(
+    () => props.order,
+    () => {
+        nextTick(() => {
+            applyPrintStyle();
+        });
+    },
+    { deep: true }
+);
 
 onUnmounted(() => {
     removePrintStyle();
@@ -53,11 +77,12 @@ onUnmounted(() => {
 <template>
     <div
         v-if="order"
-        class="thermal-receipt-print-area hidden print:block bg-white text-black font-mono leading-tight"
+        class="thermal-receipt-print-area bg-white text-black font-mono leading-tight"
     >
         <div
+            ref="receiptContainerRef"
             :class="paperSize === '80mm' ? 'w-[80mm] max-w-[80mm] text-[12px] px-2.5' : 'w-[58mm] max-w-[58mm] text-[10.5px] px-1.5'"
-            class="mx-auto py-2 box-border pb-6"
+            class="thermal-receipt-container mx-auto py-2 box-border pb-6"
         >
             <!-- Header -->
             <div class="text-center pb-2">
