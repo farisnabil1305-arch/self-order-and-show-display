@@ -103,21 +103,56 @@ body {
     scrollbar-width: none;
 }
 
-/* 6. Thermal printer print styling */
+/* 6. Thermal Printer Universal Print Styling */
+@page {
+    size: 58mm auto;
+    margin: 0mm;
+}
+
 @media print {
-    @page {
-        margin: 0;
-        size: 80mm auto;
-    }
-    body {
-        background: white !important;
-        color: black !important;
-        font-family: 'JetBrains Mono', monospace !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+    html, body {
+        width: 100% !important;
+        height: auto !important;
         margin: 0 !important;
         padding: 0 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        overflow: visible !important;
     }
+
+    /* Hide standard application viewport elements during printing */
+    body * {
+        visibility: hidden;
+    }
+
+    /* Reveal only the active receipt container and its nested elements */
+    .thermal-receipt-print-area,
+    .thermal-receipt-print-area * {
+        visibility: visible;
+    }
+
+    .thermal-receipt-print-area {
+        display: block !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        z-index: 999999 !important;
+    }
+
+    .thermal-receipt-print-area .receipt-item,
+    .thermal-receipt-print-area .receipt-section {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
     .no-print {
         display: none !important;
     }

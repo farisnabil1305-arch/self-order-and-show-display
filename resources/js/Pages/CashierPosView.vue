@@ -551,7 +551,7 @@ function clearAllOrders(scope = 'history') {
     <ReceiptPrint v-if="!isPrintingKitchen && !isPrintingZReport && receiptOrder" :order="receiptOrder" :paperSize="posPrinterSettings.paperSize" :storeSettings="storeSettings" />
 
     <!-- Thermal Kitchen Slip Print Component (hidden on screen, visible during window.print) -->
-    <KitchenTicketPrint v-if="isPrintingKitchen && kitchenOrder" :order="kitchenOrder" :paperSize="posPrinterSettings.paperSize" />
+    <KitchenTicketPrint v-if="isPrintingKitchen && kitchenOrder" :order="kitchenOrder" :paperSize="posPrinterSettings.paperSize" :storeSettings="storeSettings" />
 
     <!-- Thermal Z-Report Print Component (hidden on screen, visible during window.print) -->
     <ZReportPrint v-if="isPrintingZReport && zReportData" :report="zReportData" :paperSize="posPrinterSettings.paperSize" />

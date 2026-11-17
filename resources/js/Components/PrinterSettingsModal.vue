@@ -207,10 +207,21 @@ async function handleTestPrint() {
             showAlert('Test print struk berhasil dikirim ke printer USB/Serial!');
         } else {
             // System print: trigger browser dialog
+            let style = document.getElementById('dynamic-thermal-page-style');
+            if (!style) {
+                style = document.createElement('style');
+                style.id = 'dynamic-thermal-page-style';
+                document.head.appendChild(style);
+            }
+            const width = settings.paperSize === '80mm' ? '80mm' : '58mm';
+            style.innerHTML = `@page { size: ${width} auto; margin: 0mm; }`;
+
             showSystemTestPreview.value = true;
             setTimeout(() => {
                 window.print();
                 showSystemTestPreview.value = false;
+                const s = document.getElementById('dynamic-thermal-page-style');
+                if (s) s.remove();
                 showAlert('Dialog cetak sistem driver terbuka untuk Test Print.');
             }, 300);
         }
@@ -226,9 +237,12 @@ async function handleTestPrint() {
     <!-- Hidden Print Template for System Test Print -->
     <div
         v-if="showSystemTestPreview"
-        class="hidden print:block fixed inset-0 z-[99999] bg-white text-black p-2 font-mono text-[11px] leading-tight"
+        class="thermal-receipt-print-area hidden print:block bg-white text-black font-mono leading-tight"
     >
-        <div :class="settings.paperSize === '80mm' ? 'w-[72mm]' : 'w-[48mm]'" class="mx-auto text-center">
+        <div
+            :class="settings.paperSize === '80mm' ? 'w-[80mm] max-w-[80mm] text-[12px] px-2.5' : 'w-[58mm] max-w-[58mm] text-[10.5px] px-1.5'"
+            class="mx-auto py-2 text-center box-border pb-6"
+        >
             <div class="text-sm font-bold uppercase">SOTO BETAWI PARSOEY</div>
             <div class="text-xs font-bold my-1">*** TEST PRINT STRUK ***</div>
             <div class="border-b border-dashed border-black my-1"></div>

@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import { formatDateTime } from '@/Utils/formatters';
 
 const props = defineProps({
@@ -24,15 +24,46 @@ const totalPortions = computed(() => {
     if (!props.order?.items) return 0;
     return props.order.items.reduce((sum, item) => sum + Number(item.quantity || 1), 0);
 });
+
+// Dynamic @page size injection for thermal printer roll
+const pageStyleId = 'dynamic-thermal-page-style';
+
+function applyPrintStyle() {
+    let style = document.getElementById(pageStyleId);
+    if (!style) {
+        style = document.createElement('style');
+        style.id = pageStyleId;
+        document.head.appendChild(style);
+    }
+    const width = props.paperSize === '80mm' ? '80mm' : '58mm';
+    style.innerHTML = `@page { size: ${width} auto; margin: 0mm; }`;
+}
+
+function removePrintStyle() {
+    const style = document.getElementById(pageStyleId);
+    if (style) {
+        style.remove();
+    }
+}
+
+onMounted(() => {
+    applyPrintStyle();
+});
+
+onUnmounted(() => {
+    removePrintStyle();
+});
 </script>
 
 <template>
     <div
         v-if="order"
-        class="hidden print:block fixed inset-0 z-[99999] bg-white text-black p-2 font-mono leading-tight"
-        :class="paperSize === '80mm' ? 'text-[12px]' : 'text-[11px]'"
+        class="thermal-receipt-print-area hidden print:block bg-white text-black font-mono leading-tight"
     >
-        <div :class="paperSize === '80mm' ? 'w-[72mm]' : 'w-[48mm]'" class="mx-auto text-left">
+        <div
+            :class="paperSize === '80mm' ? 'w-[80mm] max-w-[80mm] text-[12px] px-2.5' : 'w-[58mm] max-w-[58mm] text-[11px] px-1.5'"
+            class="mx-auto py-2 text-left box-border pb-6"
+        >
             <!-- Header -->
             <div class="text-center pb-1">
                 <div class="text-xs font-black uppercase tracking-wider">{{ storeName }}</div>
@@ -42,9 +73,9 @@ const totalPortions = computed(() => {
             </div>
 
             <!-- Queue & Table Highlight -->
-            <div class="text-center py-1 bg-black text-white p-1 my-1">
+            <div class="text-center py-1.5 bg-black text-white p-1.5 my-1.5 border border-black">
                 <div class="text-[10px] uppercase font-bold text-gray-200">NO. ANTREAN:</div>
-                <div class="text-2xl font-black tracking-widest">{{ order.order_number }}</div>
+                <div class="text-2xl font-black tracking-widest my-0.5">{{ order.order_number }}</div>
                 <div class="text-xs font-black tracking-wide mt-0.5">
                     {{ isDineIn ? `MEJA: ${order.table_number || '-'}` : '>> BAWA PULANG / BUNGKUS <<' }}
                 </div>
@@ -82,7 +113,7 @@ const totalPortions = computed(() => {
                     >
                         <div class="flex items-start gap-1 text-[13px] font-black leading-tight">
                             <span class="w-6 shrink-0 text-base font-black">{{ item.quantity }}x</span>
-                            <span class="uppercase">{{ item.product?.name || item.name }}</span>
+                            <span class="uppercase flex-1">{{ item.product?.name || item.name }}</span>
                         </div>
 
                         <!-- Highlighted Kitchen Notes -->

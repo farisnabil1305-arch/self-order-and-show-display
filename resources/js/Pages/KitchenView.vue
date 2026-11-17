@@ -21,6 +21,7 @@ import {
     Minimize
 } from 'lucide-vue-next';
 import KitchenTicketPrint from '@/Components/KitchenTicketPrint.vue';
+import { thermalPrinter } from '@/Utils/thermalPrinter';
 
 const props = defineProps({
     initialData: {
@@ -39,6 +40,7 @@ const isFullscreen = ref(false);
 
 // Thermal Slip Print
 const printingOrder = ref(null);
+const kitchenPrinterSettings = ref(thermalPrinter.loadSettings('pos_printer_settings'));
 
 // Clock
 const currentTime = ref('');
@@ -191,7 +193,12 @@ onUnmounted(() => {
     <Head title="Layar Dapur & Racikan - Soto Betawi Parsoey" />
 
     <!-- Thermal Print Layout if staff clicks print -->
-    <KitchenTicketPrint v-if="printingOrder" :order="printingOrder" paperSize="58mm" />
+    <KitchenTicketPrint
+        v-if="printingOrder"
+        :order="printingOrder"
+        :paperSize="kitchenPrinterSettings.paperSize || '58mm'"
+        :storeSettings="initialData.store_settings"
+    />
 
     <div class="min-h-screen bg-[#FAF7F2] text-[#231812] flex flex-col font-sans select-none overflow-x-hidden">
         <!-- Top App Bar (Warm, Authentic Culinary Header matching Self Order) -->

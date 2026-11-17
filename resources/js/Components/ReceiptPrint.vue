@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import { formatRupiah, formatDateTime } from '@/Utils/formatters';
 
 const props = defineProps({
@@ -19,11 +19,46 @@ const props = defineProps({
 
 const isDineIn = computed(() => props.order?.order_type === 'dine_in');
 const store = computed(() => props.storeSettings || {});
+
+// Dynamic @page size injection for thermal printer roll
+const pageStyleId = 'dynamic-thermal-page-style';
+
+function applyPrintStyle() {
+    let style = document.getElementById(pageStyleId);
+    if (!style) {
+        style = document.createElement('style');
+        style.id = pageStyleId;
+        document.head.appendChild(style);
+    }
+    const width = props.paperSize === '80mm' ? '80mm' : '58mm';
+    style.innerHTML = `@page { size: ${width} auto; margin: 0mm; }`;
+}
+
+function removePrintStyle() {
+    const style = document.getElementById(pageStyleId);
+    if (style) {
+        style.remove();
+    }
+}
+
+onMounted(() => {
+    applyPrintStyle();
+});
+
+onUnmounted(() => {
+    removePrintStyle();
+});
 </script>
 
 <template>
-    <div v-if="order" class="hidden print:block fixed inset-0 z-[99999] bg-white text-black p-2 font-mono leading-tight" :class="paperSize === '80mm' ? 'text-[11px]' : 'text-[10px]'">
-        <div :class="paperSize === '80mm' ? 'w-[72mm]' : 'w-[48mm]'" class="mx-auto">
+    <div
+        v-if="order"
+        class="thermal-receipt-print-area hidden print:block bg-white text-black font-mono leading-tight"
+    >
+        <div
+            :class="paperSize === '80mm' ? 'w-[80mm] max-w-[80mm] text-[12px] px-2.5' : 'w-[58mm] max-w-[58mm] text-[10.5px] px-1.5'"
+            class="mx-auto py-2 box-border pb-6"
+        >
             <!-- Header -->
             <div class="text-center pb-2">
                 <div class="text-sm font-bold uppercase tracking-wide">{{ store.store_name || 'SOTO BETAWI PARSOEY' }}</div>
@@ -36,10 +71,10 @@ const store = computed(() => props.storeSettings || {});
             <div class="border-b border-dashed border-black my-1"></div>
 
             <!-- Queue & Order Info -->
-            <div class="text-center py-1">
-                <div class="text-[10px] uppercase text-black font-semibold">Nomor Antrean</div>
-                <div class="text-2xl font-bold tracking-wider my-0.5">{{ order.order_number }}</div>
-                <div class="text-[11px] font-bold">
+            <div class="text-center py-1 bg-black text-white p-1 my-1 border border-black">
+                <div class="text-[10px] uppercase font-bold text-gray-200">Nomor Antrean</div>
+                <div class="text-2xl font-black tracking-widest my-0.5">{{ order.order_number }}</div>
+                <div class="text-[10px] font-bold">
                     {{ isDineIn ? `[ MAKAN DI TEMPAT - MEJA ${order.table_number || '-'} ]` : '[ BAWA PULANG / TAKEAWAY ]' }}
                 </div>
             </div>
@@ -137,16 +172,7 @@ const store = computed(() => props.storeSettings || {});
                 </div>
                 <div class="text-[8px] text-gray-500 pt-1">Simpan struk ini sebagai bukti transaksi sah</div>
             </div>
+            <div class="border-b border-dashed border-black mt-2"></div>
         </div>
     </div>
 </template>
-
-<style scoped>
-@media print {
-    :global(body) {
-        background: white !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-}
-</style>

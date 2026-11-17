@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import { formatRupiah } from '@/Utils/formatters';
 
 const props = defineProps({
@@ -14,15 +14,46 @@ const props = defineProps({
 });
 
 const store = computed(() => props.report?.store_settings || {});
+
+// Dynamic @page size injection for thermal printer roll
+const pageStyleId = 'dynamic-thermal-page-style';
+
+function applyPrintStyle() {
+    let style = document.getElementById(pageStyleId);
+    if (!style) {
+        style = document.createElement('style');
+        style.id = pageStyleId;
+        document.head.appendChild(style);
+    }
+    const width = props.paperSize === '80mm' ? '80mm' : '58mm';
+    style.innerHTML = `@page { size: ${width} auto; margin: 0mm; }`;
+}
+
+function removePrintStyle() {
+    const style = document.getElementById(pageStyleId);
+    if (style) {
+        style.remove();
+    }
+}
+
+onMounted(() => {
+    applyPrintStyle();
+});
+
+onUnmounted(() => {
+    removePrintStyle();
+});
 </script>
 
 <template>
     <div
         v-if="report"
-        class="hidden print:block fixed inset-0 z-[99999] bg-white text-black p-2 font-mono leading-tight"
-        :class="paperSize === '80mm' ? 'text-[11px]' : 'text-[10px]'"
+        class="thermal-receipt-print-area hidden print:block bg-white text-black font-mono leading-tight"
     >
-        <div :class="paperSize === '80mm' ? 'w-[72mm]' : 'w-[48mm]'" class="mx-auto text-left">
+        <div
+            :class="paperSize === '80mm' ? 'w-[80mm] max-w-[80mm] text-[12px] px-2.5' : 'w-[58mm] max-w-[58mm] text-[10.5px] px-1.5'"
+            class="mx-auto py-2 text-left box-border pb-6"
+        >
             <!-- Header -->
             <div class="text-center pb-2">
                 <div class="text-xs font-black uppercase tracking-wider">{{ store.store_name || 'SOTO BETAWI PARSOEY' }}</div>
